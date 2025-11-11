@@ -2,13 +2,13 @@
 
 ## **1. Project Title**
 
-* Discover the McLarren Senna
+* Discover the McLaren Senna
 
 ---
 
 ## **2. Project Idea**
 
-* This website is about the McLarren Senna, a sports car of the famous brand McLarren.
+* This website is about the McLaren Senna, a sports car of the famous brand McLaren.
 
   Content:
     - Overview
@@ -24,7 +24,7 @@
 
 ## **3. Target Audience**
 
-* The website is for enthusiasts of motorsport, sports cars or the brand McLarren. It will give them information on the performance data as well as the history of the car. 
+* The website is for enthusiasts of motorsport, sports cars or the brand McLaren. It will give them information on the performance data as well as the history of the car. 
 
 ---
 
@@ -62,3 +62,4 @@
 * Javascript: Dice-based racing game
 
 ---
+
