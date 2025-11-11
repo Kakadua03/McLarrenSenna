@@ -1,4 +1,21 @@
-header{
-  height:150px;
-  backgroundcolour:orange;
+body{
+  margin:0px;
 }
+
+
+header{
+  height:80px;
+  background-color:orange;
+  margin:0px;
+  text-align: center;
+  font-size: 25px;
+}
+a{
+  color:black;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  text-decoration: none;
+}
+a:hover{
+  color:rgb(255, 255, 255)
+}
+
