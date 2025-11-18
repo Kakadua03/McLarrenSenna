@@ -1,16 +1,20 @@
 body{
   margin:0px;
 }
+div{
+  margin: 50px;
+  margin-right: 100px;
+}
 header{
   display: flex;
   justify-content: center;
-  align-self: center;
   height:80px;
+  margin-right: 20p;
   background-color:orange;
   margin:0px;
   font-size: 25px;
   margin-bottom: 20px;
-  width: 1200px;
+  width: 1400px;
 }
 a{
   color:black;
