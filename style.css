@@ -1,14 +1,16 @@
 body{
   margin:0px;
 }
-
-
 header{
+  display: flex;
+  justify-content: center;
+  align-self: center;
   height:80px;
   background-color:orange;
   margin:0px;
-  text-align: center;
   font-size: 25px;
+  margin-bottom: 20px;
+  width: 1200px;
 }
 a{
   color:black;
