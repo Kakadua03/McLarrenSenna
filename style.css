@@ -24,4 +24,10 @@ a{
 a:hover{
   color:rgb(255, 255, 255)
 }
+img{
+  margin: 30px;
+  margin-left: 50px;
+  margin-top: 30px;
+
+}
 
