@@ -19,15 +19,14 @@ header{
 a{
   color:black;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  margin-left: 50px;
   text-decoration: none;
 }
 a:hover{
   color:rgb(255, 255, 255)
 }
 img{
-  margin: 30px;
   margin-left: 50px;
   margin-top: 30px;
-
 }
 
