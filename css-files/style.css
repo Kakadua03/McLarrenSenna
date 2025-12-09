@@ -2,9 +2,11 @@ html{
   background-color: black;
   color: white;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  width: 100%;
 }
 body{
   margin:0px;
+  overflow-x: hidden;
 }
 div{
   margin: 50px;
@@ -29,7 +31,7 @@ a{
   text-decoration: none;
 }
 a:hover{
-  color:rgb(234, 147, 41)
+  color:rgb(228, 218, 20)
 }
 img{
   border-style: solid;
@@ -46,5 +48,11 @@ img{
 .test{
   width: 100%;
   display: flex;
+}
+.gallery{
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  width: 1500px;
 }
 
