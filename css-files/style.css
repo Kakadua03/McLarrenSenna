@@ -14,7 +14,7 @@ header{
   display: flex;
   justify-content: center;
   height:80px;
-  margin-right: 20p;
+  margin-right: 20px;
   background-color:orange;
   margin:0px;
   font-size: 25px;
@@ -41,5 +41,10 @@ img{
 .mclaren-senna-overview p{
  font-size: 14px;
  font-family: Verdana, Geneva, Tahoma, sans-serif;
+ width: 750px;
+}
+.test{
+  width: 100%;
+  display: flex;
 }
 
