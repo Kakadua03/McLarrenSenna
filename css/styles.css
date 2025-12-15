@@ -1,0 +1,217 @@
+/* =========================
+   McLaren Color Palette
+   ========================= */
+:root {
+    --mclaren-orange: #ff8700;
+    --mclaren-black: #0b0b0b;
+    --mclaren-gray: #1a1a1a;
+    --mclaren-white: #ffffff;
+    --light-gray: #ccccccd6;
+}
+
+/* =========================
+   General
+   ========================= */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding-top: 70px; /* Platz für die fixe Navbar */
+    background-color: var(--mclaren-black);
+    color: var(--mclaren-white);
+}
+
+/* =========================
+   Navbar
+   ========================= */
+#mainNav {
+    background-color: var(--mclaren-black);
+    padding: 0.5rem 0;
+}
+
+/* Container für die externen Links oben links */
+.navbar-brand-container {
+    display: flex;
+    align-items: center;
+}
+
+/* Alle Links im Container */
+.navbar-brand-container a {
+    color: var(--mclaren-white);
+    text-decoration: none;
+    margin: 0 5px;
+    position: relative;
+    font-weight: bold;
+}
+
+/* Senkrechte Linien nur zwischen Links (außer nach dem letzten) */
+.navbar-brand-container a:not(:last-child)::after {
+    content: "";
+    display: inline-block;
+    width: 2px;
+    height: 20px;
+    background-color: var(--mclaren-orange);
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+/* Hover-Farbe */
+.navbar-brand-container a:hover {
+    color: var(--mclaren-orange);
+}
+
+/* Rechts ausgerichtete internen Links (Abschnitts-Links) */
+.navbar-nav .nav-item a {
+    color: var(--mclaren-white);
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+.navbar-nav .nav-item a:hover {
+    color: var(--mclaren-orange);
+}
+
+.navbar-nav .nav-link.active {
+    color: var(--light-gray) !important;
+}
+
+/* =========================
+   Hero
+   ========================= */
+.hero {
+    height: 100vh;
+    background-image:
+        linear-gradient(
+            rgba(0, 0, 0, 0.6),
+            rgba(0, 0, 0, 0.6)
+        ),
+        url("https://images.unsplash.com/photo-1552962700-b7fcd17d89bf?w=1600&auto=format&fit=crop&q=80");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    color: var(--mclaren-orange);
+}
+
+.hero p {
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+}
+
+/* =========================
+   Hero für History-Seite (neues Bild schwarz-weiß)
+   ========================= */
+body.hero-history .hero {
+    position: relative;
+}
+
+body.hero-history .hero::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: url("https://cdn.pixabay.com/photo/2016/12/14/15/25/f1-1906648_1280.jpg");
+    background-size: cover;
+    background-position: center;
+    filter: grayscale(100%);
+    z-index: 0;
+}
+
+body.hero-history .hero > .container {
+    position: relative;
+    z-index: 1; /* Text bleibt sichtbar */
+}
+
+/* =========================
+   Hero für Data-Seite
+   ========================= */
+body.hero-data .hero {
+    position: relative;
+}
+
+body.hero-data .hero::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: url("https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+    background-size: cover;
+    background-position: center;
+    filter: grayscale(100%);
+    z-index: 0;
+}
+
+body.hero-data .hero > .container {
+    position: relative;
+    z-index: 1;
+}
+
+/* =========================
+   Button
+   ========================= */
+.btn-mclaren {
+    background-color: var(--mclaren-orange);
+    color: black;
+    font-weight: bold;
+    padding: 10px 25px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-mclaren:hover {
+    background-color: #e67600;
+}
+
+/* =========================
+   Sections
+   ========================= */
+.section {
+    padding: 80px 20px;
+    text-align: center;
+    background-color: var(--mclaren-black);
+}
+
+.section-dark {
+    background-color: var(--mclaren-gray);
+}
+
+.section h2 {
+    color: var(--mclaren-orange);
+    margin-bottom: 20px;
+}
+
+/* =========================
+   Lists (Inhaltslisten)
+   ========================= */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+ul li {
+    margin-bottom: 10px;
+}
+
+/* =========================
+   Footer
+   ========================= */
+footer {
+    background-color: black;
+    text-align: center;
+    padding: 20px;
+    color: #aaa;
+}
+
+/* =========================
+   Responsive
+   ========================= */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2.2rem;
+    }
+    .hero p {
+        font-size: 1rem;
+    }
+}
