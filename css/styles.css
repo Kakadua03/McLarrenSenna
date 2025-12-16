@@ -6,7 +6,7 @@
     --mclaren-black: #0b0b0b;
     --mclaren-gray: #1a1a1a;
     --mclaren-white: #ffffff;
-    --light-gray: #ccccccd6;
+    --light-gray: #949494;
 }
 
 /* =========================
@@ -214,4 +214,16 @@ footer {
     .hero p {
         font-size: 1rem;
     }
+}
+
+/* =========================
+   Custom Styles for Model List
+   ========================= */
+.model-list {
+    list-style: none;
+}
+
+.model-list li::before {
+    content: "▸ ";
+    color: var(--mclaren-orange);
 }
