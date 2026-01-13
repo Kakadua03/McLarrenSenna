@@ -181,6 +181,11 @@ body.hero-data .hero > .container {
     margin-bottom: 20px;
 }
 
+.section a {
+    color: var(--mclaren-orange);
+    text-decoration: none;
+}
+
 /* =========================
    Lists (Inhaltslisten)
    ========================= */
