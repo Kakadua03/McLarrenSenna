@@ -25,7 +25,6 @@ body {
    ========================= */
 #mainNav {
     background-color: var(--mclaren-black);
-    padding: 0.5rem 0;
 }
 
 /* Container für die externen Links oben links */
@@ -226,4 +225,8 @@ footer {
 .model-list li::before {
     content: "▸ ";
     color: var(--mclaren-orange);
+}
+
+body.hero-gallery .hero::before {
+
 }
