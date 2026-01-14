@@ -231,7 +231,3 @@ footer {
     content: "▸ ";
     color: var(--mclaren-orange);
 }
-
-body.hero-gallery .hero::before {
-
-}
