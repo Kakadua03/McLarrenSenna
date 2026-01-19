@@ -170,6 +170,7 @@ body.hero-data .hero > .container {
     padding: 80px 20px;
     text-align: center;
     background-color: var(--mclaren-black);
+    display: block;
 }
 
 .section-dark {
@@ -184,6 +185,16 @@ body.hero-data .hero > .container {
 .section a {
     color: var(--mclaren-orange);
     text-decoration: none;
+}
+
+.section a:hover {
+    text-decoration: underline;
+}
+
+.section p {
+    max-width: 800px;
+    margin: 0 auto 20px auto;
+    line-height: 1.6;
 }
 
 /* =========================
