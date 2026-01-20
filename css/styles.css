@@ -192,9 +192,10 @@ body.hero-data .hero > .container {
 }
 
 .section p {
-    max-width: 800px;
+    max-width: 500px;
     margin: 0 auto 20px auto;
     line-height: 1.6;
+    text-align: left;
 }
 
 /* =========================
