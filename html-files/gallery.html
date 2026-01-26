@@ -42,14 +42,21 @@
     <h2>McLaren Senna Gallery</h2>
 
     <div class="mclaren-gallery">
-        <button class="gallery-btn left" onclick="prevImage()">&#10094;</button>
+    <button class="gallery-btn left" onclick="prevImage()">&#10094;</button>
 
+    <div class="gallery-content">
         <img id="galleryImage"
              src="https://images.unsplash.com/photo-1712095314770-5ea32f8b0505?q=80&w=2670&auto=format&fit=crop"
              alt="McLaren Senna">
 
-        <button class="gallery-btn right" onclick="nextImage()">&#10095;</button>
+        <p id="galleryCaption" class="gallery-caption">
+            McLaren Senna – Track-focused Hypercar
+        </p>
     </div>
+
+    <button class="gallery-btn right" onclick="nextImage()">&#10095;</button>
+</div>
+
 </section>
 
 
