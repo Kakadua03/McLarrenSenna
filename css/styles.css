@@ -243,3 +243,60 @@ footer {
     content: "▸ ";
     color: var(--mclaren-orange);
 }
+
+/* =========================
+   McLaren Gallery
+   ========================= */
+.mclaren-gallery {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.mclaren-gallery img {
+    width: 600px;
+    max-width: 90%;
+    height: 350px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 3px solid var(--mclaren-orange);
+}
+
+/* Buttons */
+.gallery-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    color: var(--mclaren-orange);
+    border: 2px solid var(--mclaren-orange);
+    font-size: 32px;
+    padding: 10px 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.gallery-btn:hover {
+    background-color: var(--mclaren-orange);
+    color: black;
+}
+
+.gallery-btn.left {
+    left: -2.5px;
+}
+
+.gallery-btn.right {
+    right: -2.5px;
+}
+
+/* Mobile Anpassung */
+@media (max-width: 768px) {
+    .gallery-btn.left {
+        left: 10px;
+    }
+    .gallery-btn.right {
+        right: 10px;
+    }
+}
