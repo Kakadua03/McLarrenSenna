@@ -288,3 +288,11 @@ footer {
     background-color: var(--mclaren-orange);
     color: var(--mclaren-black);
 }
+
+.mclaren-gallery a img {
+    cursor: pointer;
+}
+
+.mclaren-gallery a:hover img {
+    opacity: 0.9;
+}

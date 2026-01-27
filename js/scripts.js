@@ -34,36 +34,40 @@ window.addEventListener('DOMContentLoaded', event => {
         /* =========================
        Gallery Logic
        ========================= */
-    const galleryItems = [
+        const galleryItems = [
         {
             image: "https://images.unsplash.com/photo-1712095314770-5ea32f8b0505?q=80&w=2670&auto=format&fit=crop",
-            text: "Striking design meets unparalleled performance"
+            text: "McLaren Senna - Track-focused Hypercar",
+            link: "gallerydescriptionpages/firstpicture.html"
         },
-        { // Lego Senna
+        {
             image: "https://images.unsplash.com/photo-1602182244320-12e14faa479f?q=80&w=2670&auto=format&fit=crop",
-            text: "The McLarren Senna in Lego form"
+            text: "The McLaren Senna in LEGO form",
+            link: "gallerydescriptionpages/secondpicture.html"
         },
         {
             image: "https://images.unsplash.com/photo-1623476950375-368107fffaa9?q=80&w=3870&auto=format&fit=crop",
-            text: "Built for maximum downforce"
-        },
-        {
-            image: "https://images.unsplash.com/photo-1552962700-b7fcd17d89bf?q=80&w=2728&auto=format&fit=crop",
-            text: "Inspired by Ayrton Senna"
+            text: "Built for maximum downforce",
+            link: "gallerydescriptionpages/thirdpicture.html"
         },
         {
             image: "https://cdn.pixabay.com/photo/2023/10/20/06/51/car-8328373_1280.jpg",
-            text: "Lightweight. Powerful. Uncompromising."
+            text: "Lightweight. Powerful. Uncompromising.",
+            link: "gallerydescriptionpages/fourthpicture.html"
         }
     ];
+
 
     let currentIndex = 0;
     const galleryImage = document.getElementById("galleryImage");
     const galleryCaption = document.getElementById("galleryCaption");
 
+    const galleryLink = document.getElementById("galleryLink");
+
     function updateGallery() {
         galleryImage.src = galleryItems[currentIndex].image;
         galleryCaption.textContent = galleryItems[currentIndex].text;
+        galleryLink.href = galleryItems[currentIndex].link;
     }
 
     window.nextImage = function () {
