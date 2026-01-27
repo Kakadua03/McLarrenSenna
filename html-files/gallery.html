@@ -29,7 +29,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#origin">Gallery</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#gallery">Gallery</a></li>
                 </ul>
             </div>
         </div>
@@ -38,17 +38,18 @@
 
 
     <!-- Gallery -->
-<section class="section section-dark">
+<section id="gallery" class="section section-dark">
     <h2>McLaren Senna Gallery</h2>
 
     <div class="mclaren-gallery">
     <button class="gallery-btn left" onclick="prevImage()">&#10094;</button>
 
     <div class="gallery-content">
+        <a id="galleryLink" href="gallerydescriptionpages/firstpicture.html">
         <img id="galleryImage"
              src="https://images.unsplash.com/photo-1712095314770-5ea32f8b0505?q=80&w=2670&auto=format&fit=crop"
              alt="McLaren Senna">
-
+        </a>
         <p id="galleryCaption" class="gallery-caption">
             McLaren Senna - Track-focused Hypercar
         </p>
