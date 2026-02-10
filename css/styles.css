@@ -111,7 +111,7 @@ body.hero-history .hero::before {
     background-image: url("https://cdn.pixabay.com/photo/2016/12/14/15/25/f1-1906648_1280.jpg");
     background-size: cover;
     background-position: center;
-    filter: grayscale(100%);
+    filter: brightness(75%) grayscale(75%);
     z-index: 0;
 }
 
@@ -156,7 +156,7 @@ body.hero-data .hero > .container {
 }
 
 .btn-mclaren:hover {
-    background-color: #e67600;
+    background-color: --var(--mclaren-orange);
 }
 
 /* =========================
@@ -296,4 +296,8 @@ footer {
 
 .mclaren-gallery a:hover img {
     opacity: 0.9;
+}
+
+#currentPage {
+    color: var(--light-gray);
 }
