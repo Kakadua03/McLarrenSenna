@@ -7,6 +7,7 @@
     --mclaren-gray: #1a1a1a;
     --mclaren-white: #ffffff;
     --light-gray: #949494;
+    --light-dark-gray: rgb(59, 56, 56);
 }
 
 /* =========================
@@ -170,7 +171,7 @@ body.hero-data .hero > .container {
 }
 
 .section-dark {
-    background-color: rgb(59, 56, 56);
+    background-color: var(--light-dark-gray);
 }
 
 .section h2 {
@@ -304,6 +305,7 @@ footer {
 /* Abstand wegen fixed Navbar */
 .car-section {
     padding: 140px 5vw;
+    background-color: rgb(59, 56, 56);
 }
 
 /* Text etwas größer auf großen Bildschirmen */
@@ -321,9 +323,13 @@ footer {
     height: auto;
     border-radius: 16px;
     box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+
+}
+.col-md-6 img {
+    border: 3px solid var(--mclaren-orange);
+    border-radius: 16px;
 }
 
-/* Extra große Monitore */
 @media (min-width: 1600px) {
     .car-section {
         padding-left: 10vw;
