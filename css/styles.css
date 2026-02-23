@@ -170,7 +170,7 @@ body.hero-data .hero > .container {
 }
 
 .section-dark {
-    background-color: var(--mclaren-gray);
+    background-color: rgb(59, 56, 56);
 }
 
 .section h2 {
@@ -301,14 +301,32 @@ footer {
 #currentPage {
     border-top: 2px solid var(--mclaren-orange);
 }
+/* Abstand wegen fixed Navbar */
 .car-section {
-    padding: 120px 0; /* Abstand wegen fixed Navbar */
+    padding: 140px 5vw;
 }
 
+/* Text etwas größer auf großen Bildschirmen */
+.car-section h2 {
+    font-size: clamp(1.8rem, 2.5vw, 3rem);
+}
+
+.car-section p {
+    font-size: clamp(1rem, 1.2vw, 1.3rem);
+}
+
+/* Bild perfekt responsive */
 .car-img {
-    max-width: 100%;
+    width: 100%;
     height: auto;
-    max-height: 450px;   /* Begrenzt die Bildhöhe */
-    object-fit: cover;
-    border-radius: 12px;
+    border-radius: 16px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+}
+
+/* Extra große Monitore */
+@media (min-width: 1600px) {
+    .car-section {
+        padding-left: 10vw;
+        padding-right: 10vw;
+    }
 }
