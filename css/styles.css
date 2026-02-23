@@ -301,3 +301,14 @@ footer {
 #currentPage {
     border-top: 2px solid var(--mclaren-orange);
 }
+.car-section {
+    padding: 120px 0; /* Abstand wegen fixed Navbar */
+}
+
+.car-img {
+    max-width: 100%;
+    height: auto;
+    max-height: 450px;   /* Begrenzt die Bildhöhe */
+    object-fit: cover;
+    border-radius: 12px;
+}
