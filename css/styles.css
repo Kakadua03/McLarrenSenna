@@ -299,5 +299,5 @@ footer {
 }
 
 #currentPage {
-    color: var(--light-gray);
+    border-top: 2px solid var(--mclaren-orange);
 }
