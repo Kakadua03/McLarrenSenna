@@ -7,7 +7,6 @@
     --mclaren-gray: #1a1a1a;
     --mclaren-white: #ffffff;
     --light-gray: #949494;
-    --light-dark-gray: rgb(59, 56, 56);
 }
 
 /* =========================
@@ -171,7 +170,7 @@ body.hero-data .hero > .container {
 }
 
 .section-dark {
-    background-color: var(--light-dark-gray);
+    background-color: var(--mclaren-gray);
 }
 
 .section h2 {
@@ -268,7 +267,7 @@ footer {
 .gallery-caption {
     margin-top: 15px;
     font-size: 1.1rem;
-    color: var(--light-white);
+    color: var(--mclaren-white);
 }
 
 /* Buttons */
@@ -305,7 +304,7 @@ footer {
 /* Abstand wegen fixed Navbar */
 .car-section {
     padding: 140px 5vw;
-    background-color: rgb(59, 56, 56);
+    background-color: var(--mclaren-gray);
 }
 
 /* Text etwas größer auf großen Bildschirmen */
