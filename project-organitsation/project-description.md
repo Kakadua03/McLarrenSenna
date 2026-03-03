@@ -114,16 +114,8 @@ Example cars that can be selected:
 
 - HTML for structure  
 - CSS for styling  
-- JavaScript for logic and interactivity  
-- A chart library (e.g., Chart.js) for data visualization  
+- JavaScript for logic and interactivity   
 
 ---
 
-##  Learning Goals
-
-- Understanding JavaScript objects for storing data  
-- Working with user input (dropdown menus)  
-- Updating visual elements dynamically  
-- Creating and modifying charts  
-- Basic data visualization principles  
 
