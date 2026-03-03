@@ -94,8 +94,9 @@ Example cars that can be selected:
 
 - Bugatti Chiron  
 - Koenigsegg Jesko  
-- Ferrari SF90 Stradale  
-- Porsche 911 GT2 RS  
+- Ferrari LaFerrari 
+- Porsche 918 Spyder
+- McLaren P1
 
 ---
 
