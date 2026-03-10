@@ -156,7 +156,7 @@ body.hero-data .hero > .container {
 }
 
 .btn-mclaren:hover {
-    background-color: --var(--mclaren-orange);
+    background-color: var(--mclaren-orange);
 }
 
 /* =========================
