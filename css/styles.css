@@ -168,6 +168,12 @@ body.hero-data .hero > .container {
     background-color: var(--mclaren-black);
     display: block;
 }
+#gallery {
+    height: calc(100vh - 180px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 .section-dark {
     background-color: var(--mclaren-gray);
@@ -248,7 +254,7 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 10px;
+    width: 100%;
 }
 
 .gallery-content {
