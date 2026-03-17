@@ -318,6 +318,7 @@ footer {
 .car-section {
     padding: 5%;
     background-color: var(--mclaren-gray);
+    overflow: hidden;
 }
 
 /* Text etwas größer auf großen Bildschirmen */
