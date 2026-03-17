@@ -316,7 +316,7 @@ footer {
 }
 /* Abstand wegen fixed Navbar */
 .car-section {
-    padding: 140px 5vw;
+    padding: 5%;
     background-color: var(--mclaren-gray);
 }
 
