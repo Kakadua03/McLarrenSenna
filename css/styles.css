@@ -318,6 +318,8 @@ footer {
 .car-section {
     padding: 5%;
     background-color: var(--mclaren-gray);
+}
+.col-md-6 {
     overflow: hidden;
 }
 
