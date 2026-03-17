@@ -18,7 +18,6 @@ body {
     padding-top: 70px;
     background-color: var(--mclaren-black);
     color: var(--mclaren-white);
-
     height: 100vh;
 }
 
@@ -120,6 +119,10 @@ body.hero-history .hero::before {
 body.hero-history .hero > .container {
     position: relative;
     z-index: 1;
+}
+
+.hero-gallery {
+    overflow: hidden;
 }
 
 /* =========================
