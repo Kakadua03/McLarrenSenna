@@ -1,5 +1,5 @@
-    <!DOCTYPE html>
-    <html lang="en">
+<!DOCTYPE html>
+<html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,33 +25,24 @@
                 <a class="navbar-brand" id="currentPage" href="gallery.html">Gallery</a>
                 <a class="navbar-brand" href="comparison.html">Comparison</a>
             </div>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            </div>
         </div>
     </nav>
 
-
-
     <!-- Gallery -->
-<section id="gallery" class="section section-dark">
+    <section id="gallery" class="section section-dark">
+        <div class="mclaren-gallery">
+            <button class="gallery-btn left" onclick="prevImage()">&#10094;</button>
+            <div class="gallery-content">
+                <a id="galleryLink" href="gallerydescriptionpages/firstpicture.html">
+                    <img id="galleryImage"
+                    src="https://images.unsplash.com/photo-1712095314770-5ea32f8b0505?q=80&w=2670&auto=format&fit=crop"
+                    alt="McLaren Senna">
+                </a>
+            </div>
+            <button class="gallery-btn right" onclick="nextImage()">&#10095;</button>
+        </div>
 
-    <div class="mclaren-gallery">
-    <button class="gallery-btn left" onclick="prevImage()">&#10094;</button>
-
-    <div class="gallery-content">
-        <a id="galleryLink" href="gallerydescriptionpages/firstpicture.html">
-        <img id="galleryImage"
-             src="https://images.unsplash.com/photo-1712095314770-5ea32f8b0505?q=80&w=2670&auto=format&fit=crop"
-             alt="McLaren Senna">
-        </a>
-    </div>
-
-    <button class="gallery-btn right" onclick="nextImage()">&#10095;</button>
-</div>
-
-</section>
+    </section>
 
 
     <!-- Footer -->
