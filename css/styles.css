@@ -185,6 +185,11 @@ body.hero-data .hero > .container {
     background-color: var(--mclaren-gray);
 }
 
+.section-dark h1{
+    font-size: 3.5rem;
+    color: var(--mclaren-orange); 
+}
+
 .section h2 {
     color: var(--mclaren-orange);
     margin-bottom: 20px;
