@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="../assets/mclaren.png" type="image/png">
-    <title>McLaren Senna - Homepage</title>
-    
+    <title>McLaren Senna - Comparison</title>
+
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom CSS -->
+    <!-- Original CSS -->
     <link rel="stylesheet" href="../css/styles.css">
 </head>
 
@@ -25,24 +25,43 @@
             <a class="navbar-brand" href="gallery.html">Gallery</a>
             <a class="navbar-brand" id="currentPage" href="comparison.html">Comparison</a>
         </div>
+    </div>
 </nav>
 
-<section class="section-dark" id="gallery">
-    <div class="container text-center">
-        <h1>Comparison</h1>
-        <p>
-            Compare the McLaren Senna with other hypercars in terms of design, performance, and more.
-        </p>
-        <p>
-            <input type="text" id="search" placeholder="Search Model or Make..." />
+<section class="section-dark" id="comparison">
+    <div class="container text-center mt-5 pt-5">
 
-            <select id="brandFilter">
-            <option value="">All Makes</option>
+        <h1>Compare Cars with McLaren Senna</h1>
+
+        <!-- Make Filter -->
+        <div class="mb-3">
+            <select id="brandFilter" class="form-select">
+                <option value="">All Makes</option>
             </select>
+        </div>
 
-<canvas id="myChart"></canvas>
-        </p>
+        <!-- Dropdown -->
+        <div class="mb-3">
+            <select id="carDropdown" class="form-select">
+                <option value="">Select a car...</option>
+            </select>
+        </div>
+
+        <!-- Comparison Table -->
+        <div id="compareData" class="mb-4"></div>
+
+        <!-- Chart -->
+        <canvas id="myChart"></canvas>
+
     </div>
+</section>
+
+<!-- Libraries -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+
+<!-- Custom JS -->
+<script src="../js/comparison.js"></script>
 
 </body>
 </html>
