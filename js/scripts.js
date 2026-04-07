@@ -35,22 +35,22 @@ window.addEventListener('DOMContentLoaded', event => {
 
     const galleryItems = [
         {
-            image: "https://images.unsplash.com/photo-1712095314770-5ea32f8b0505?q=80&w=2670&auto=format&fit=crop",
+            image: "../assets/first-picture.jpg",
             link: "gallerydescriptionpages/firstpicture.html",
             text: "Bild 1"
         },
         {
-            image: "https://images.unsplash.com/photo-1602182244320-12e14faa479f?q=80&w=2670&auto=format&fit=crop",
+            image: "../assets/second-picture.jpg",
             link: "gallerydescriptionpages/secondpicture.html",
             text: "Bild 2"
         },
         {
-            image: "https://images.unsplash.com/photo-1623476950375-368107fffaa9?q=80&w=3870&auto=format&fit=crop",
+            image: "../assets/third-picture.jpg",
             link: "gallerydescriptionpages/thirdpicture.html",
             text: "Bild 3"
         },
         {
-            image: "https://cdn.pixabay.com/photo/2023/10/20/06/51/car-8328373_1280.jpg",
+            image: "../assets/fourth-picture.jpg",
             link: "gallerydescriptionpages/fourthpicture.html",
             text: "Bild 4"
         }
