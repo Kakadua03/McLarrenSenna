@@ -1,70 +1,79 @@
+console.log("APP JS GELADEN");
+
 let allData = [];
 let chart;
 
-// Load CSV Data
-Papa.parse("../web-application/carapi-opendatafeed-sample/models-sample.csv", {
-  download: true,
-  header: true,
-  complete: function(results) {
-    allData = results.data.filter(row => row["Make Name"]);
+// CSV Datei laden (lokal über File Input)
+document.getElementById("csvFile").addEventListener("change", function(event) {
+  const file = event.target.files[0];
+  if (!file) return;
 
-    populateDropdown(allData);
-    updateChart(allData);
-  }
+  Papa.parse(file, {
+    header: true,
+    skipEmptyLines: true,
+    complete: function(results) {
+
+      const unique = {};
+
+      results.data.forEach(row => {
+        const hp = row["Engine Horsepower Hp"];
+        if (!hp) return;
+
+        const key = row["Make Name"] + row["Model Name"] + hp;
+
+        if (!unique[key]) {
+          unique[key] = row;
+        }
+      });
+
+      allData = Object.values(unique);
+
+      populateDropdowns(allData);
+
+      console.log("CSV geladen:", allData);
+    }
+  });
 });
 
-// Fill Dropdown
-function populateDropdown(data) {
-  const brands = [...new Set(data.map(item => item["Make Name"]))];
-  const select = document.getElementById("brandFilter");
+// Dropdowns füllen
+function populateDropdowns(data) {
+  const select1 = document.getElementById("car1");
+  const select2 = document.getElementById("car2");
 
-  brands.forEach(brand => {
-    const option = document.createElement("option");
-    option.value = brand;
-    option.textContent = brand;
-    select.appendChild(option);
+  select1.innerHTML = "";
+  select2.innerHTML = "";
+
+  data.forEach(car => {
+    const name = `${car["Make Name"]} ${car["Model Name"]} (${car["Engine Horsepower Hp"]} PS)`;
+
+    select1.add(new Option(name, name));
+    select2.add(new Option(name, name));
   });
 }
 
-// Event Listener
-document.getElementById("search").addEventListener("input", filterData);
-document.getElementById("brandFilter").addEventListener("change", filterData);
+// Vergleich starten
+function compareCars() {
+  const car1 = document.getElementById("car1").value;
+  const car2 = document.getElementById("car2").value;
 
-// Filter Funktion
-function filterData() {
-  const searchValue = document.getElementById("search").value.toLowerCase();
-  const selectedBrand = document.getElementById("brandFilter").value;
-
-  let filtered = allData;
-
-  // Filter Brand
-  if (selectedBrand) {
-    filtered = filtered.filter(item => item["Make Name"] === selectedBrand);
-  }
-
-  // Filter Search
-  if (searchValue) {
-    filtered = filtered.filter(item =>
-      item["Make Name"].toLowerCase().includes(searchValue) ||
-      item["Model Name"].toLowerCase().includes(searchValue)
-    );
-  }
-
-  updateChart(filtered);
-}
-
-// Update Chart
-function updateChart(data) {
-
-  const counts = {};
-
-  data.forEach(item => {
-    const make = item["Make Name"];
-    counts[make] = (counts[make] || 0) + 1;
+  const selected = allData.filter(car => {
+    const name = `${car["Make Name"]} ${car["Model Name"]} (${car["Engine Horsepower Hp"]} PS)`;
+    return name === car1 || name === car2;
   });
 
-  const labels = Object.keys(counts);
-  const values = Object.values(counts);
+  updateChart(selected);
+}
+
+// Chart erstellen
+function updateChart(cars) {
+
+  const labels = cars.map(car =>
+    `${car["Make Name"]} ${car["Model Name"]}`
+  );
+
+  const horsepower = cars.map(car =>
+    parseInt(car["Engine Horsepower Hp"]) || 0
+  );
 
   if (chart) {
     chart.destroy();
@@ -75,10 +84,18 @@ function updateChart(data) {
     data: {
       labels: labels,
       datasets: [{
-        label: "Models per Make",
-        data: values,
-        backgroundColor: "rgba(75, 192, 192, 0.6)"
+        label: "PS (Horsepower)",
+        data: horsepower
       }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        title: {
+          display: true,
+          text: "Auto Leistungsvergleich"
+        }
+      }
     }
   });
 }
