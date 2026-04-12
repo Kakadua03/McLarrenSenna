@@ -104,13 +104,13 @@ function updateComparison(list) {
                 <td>${senna.power}</td>
             </tr>
             <tr>
-                <td>Hubraum</td>
+                <td>Engine Size</td>
                 <td>${car["Engine Size"]} L</td>
                 <td>${senna.size} L</td>
             </tr>
             <tr>
-                <td>Zylinder</td>
-                <td>${car["Engine Cylinders"]}</td>
+                <td>Cylinders</td>
+                <td>${parseCylinders(car["Engine Cylinders"])}</td>
                 <td>${senna.cylinders}</td>
             </tr>
         </table>
@@ -128,14 +128,14 @@ function updateChart(car) {
     chart = new Chart(ctx, {
         type: "bar",
         data: {
-            labels: ["PS", "Hubraum", "Zylinder"],
+            labels: ["PS", "Engine Size", "Cylinders"],
             datasets: [
                 {
                     label: car["Model Name"],
                     data: [
                         Number(car["Engine Horsepower Hp"]),
                         Number(car["Engine Size"]),
-                        Number(car["Engine Cylinders"])
+                        parseCylinders(car["Engine Cylinders"])
                     ],
                     backgroundColor: "blue"
                 },
@@ -151,4 +151,11 @@ function updateChart(car) {
             ]
         }
     });
+}
+
+// Helper: Parse Cylinders (z.B. "V8" → 8)
+function parseCylinders(value) {
+    if (!value) return 0;
+    const match = value.match(/\d+/); // sucht Zahl im String (z.B. "V8" → 8)
+    return match ? Number(match[0]) : 0;
 }
