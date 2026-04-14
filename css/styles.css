@@ -372,3 +372,6 @@ footer {
     background-color: var(--mclaren-orange);
     color: var(--mclaren-white);
 }
+.margin-comparasion {
+    margin-top: 0px !important;
+}
