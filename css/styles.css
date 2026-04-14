@@ -200,6 +200,11 @@ body.hero-data .hero > .container {
     text-decoration: none;
 }
 
+.section-dark a {
+    color: var(--mclaren-orange);
+    text-decoration: none;
+}
+
 .section a:hover {
     text-decoration: underline;
 }
