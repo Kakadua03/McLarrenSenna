@@ -126,7 +126,6 @@ function updateChart(car) {
     const ctx = document.getElementById("myChart").getContext("2d");
 
     if (chart) chart.destroy();
-
 chart = new Chart(ctx, {
     type: "bar",
     data: {
