@@ -137,7 +137,7 @@ function updateChart(car) {
                         Number(car["Engine Size"]),
                         parseCylinders(car["Engine Cylinders"])
                     ],
-                    backgroundColor: "blue"
+                    backgroundColor: "#5656c8"
                 },
                 {
                     label: "McLaren Senna",
@@ -146,7 +146,7 @@ function updateChart(car) {
                         senna.size,
                         senna.cylinders
                     ],
-                    backgroundColor: "orange"
+                    backgroundColor: "#ff8700"
                 }
             ]
         }
