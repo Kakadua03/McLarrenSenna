@@ -89,6 +89,8 @@ function updateComparison(list) {
 
     if (!car) return;
 
+    console.log(car);
+
     const div = document.getElementById("compareData");
     div.innerHTML = `
         <h3>${car["Make Name"]} ${car["Model Name"]} vs McLaren Senna</h3>
@@ -125,37 +127,45 @@ function updateChart(car) {
 
     if (chart) chart.destroy();
 
-    chart = new Chart(ctx, {
-        type: "bar",
-        data: {
-            labels: ["PS", "Engine Size", "Cylinders"],
-            datasets: [
-                {
-                    label: car["Model Name"],
-                    data: [
-                        Number(car["Engine Horsepower Hp"]),
-                        Number(car["Engine Size"]),
-                        parseCylinders(car["Engine Cylinders"])
-                    ],
-                    backgroundColor: "blue"
-                },
-                {
-                    label: "McLaren Senna",
-                    data: [
-                        senna.power,
-                        senna.size,
-                        senna.cylinders
-                    ],
-                    backgroundColor: "orange"
-                }
-            ]
+chart = new Chart(ctx, {
+    type: "bar",
+    data: {
+        labels: ["PS", "Engine Size", "Cylinders"],
+        datasets: [
+            {
+                label: car["Model Name"],
+                data: [
+                    Number(car["Engine Horsepower Hp"]),
+                    Number(car["Engine Size"]),
+                    parseCylinders(car["Engine Cylinders"])
+                ],
+                backgroundColor: "#00A4EF"
+            },
+            {
+                label: "McLaren Senna",
+                data: [
+                    senna.power,
+                    senna.size,
+                    senna.cylinders
+                ],
+                backgroundColor: "#ff8700"
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: {
+                display: false
+            }
         }
-    });
+    }
+});
 }
 
 // Helper: Parse Cylinders (z.B. "V8" → 8)
 function parseCylinders(value) {
     if (!value) return 0;
-    const match = value.match(/\d+/); // sucht Zahl im String (z.B. "V8" → 8)
+    const match = value.match(/\d+/);
     return match ? Number(match[0]) : 0;
 }
