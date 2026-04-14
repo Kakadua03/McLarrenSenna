@@ -97,7 +97,7 @@ function updateComparison(list) {
         <table class="table table-dark table-bordered">
             <tr>
                 <th></th>
-                <th>${car["Model Name"]}</th>
+                <th>${car["Make Name"]} ${car["Model Name"]}</th>
                 <th>McLaren Senna</th>
             </tr>
             <tr>
@@ -132,7 +132,7 @@ chart = new Chart(ctx, {
         labels: ["PS", "Engine Size", "Cylinders"],
         datasets: [
             {
-                label: car["Model Name"],
+                label: `${car["Make Name"]} ${car["Model Name"]}`,
                 data: [
                     Number(car["Engine Horsepower Hp"]),
                     Number(car["Engine Size"]),
