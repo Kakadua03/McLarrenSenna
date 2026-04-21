@@ -56,7 +56,8 @@ window.addEventListener('DOMContentLoaded', event => {
         }
     ];
 
-    let currentIndex = 0;
+    // Hash beim Laden auslesen
+    let currentIndex = parseInt(window.location.hash.replace("#", "")) || 0;
 
     const galleryImage = document.getElementById("galleryImage");
     const galleryCaption = document.getElementById("galleryCaption");
@@ -71,6 +72,9 @@ window.addEventListener('DOMContentLoaded', event => {
         if (galleryCaption) {
             galleryCaption.textContent = galleryItems[currentIndex].text;
         }
+
+        // Hash in URL speichern
+        history.replaceState(null, "", "#" + currentIndex);
     }
 
     window.nextImage = function () {
@@ -83,7 +87,7 @@ window.addEventListener('DOMContentLoaded', event => {
         updateGallery();
     };
 
-    // WICHTIG: Galerie beim Laden initialisieren
+    // Galerie beim Laden initialisieren
     updateGallery();
 
 });
