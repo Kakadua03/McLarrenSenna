@@ -32,6 +32,10 @@ body {
     display: flex;
     align-items: center;
 }
+.navbar-back-button {
+    display: flex;
+    justify-content: flex-end;
+}
 
 .navbar-brand-container a {
     color: var(--mclaren-white);
