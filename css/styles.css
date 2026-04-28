@@ -379,3 +379,88 @@ footer {
 .margin-comparasion {
     margin-top: 0px !important;
 }
+
+/* =========================
+   Unified Comparison Table
+   ========================= */
+.comparison-title {
+    color: var(--mclaren-white);
+    font-size: 1.3rem;
+    margin-bottom: 12px;
+    text-align: left;
+}
+
+.comparison-table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+.comparison-table th,
+.comparison-table td {
+    vertical-align: middle !important;
+    padding: 10px 12px;
+}
+
+/* Column widths */
+.comparison-table th:nth-child(1),
+.comparison-table td:nth-child(1) { width: 10%; }
+.comparison-table th:nth-child(2),
+.comparison-table td:nth-child(2) { width: 16%; }
+.comparison-table th:nth-child(3),
+.comparison-table td:nth-child(3) { width: 16%; }
+.comparison-table th:nth-child(4),
+.comparison-table td:nth-child(4) { width: 58%; }
+
+.metric-label {
+    font-weight: bold;
+    color: var(--light-gray);
+    white-space: nowrap;
+}
+
+.val-cell {
+    font-weight: bold;
+    text-align: center;
+}
+
+.car-val   { color: #00A4EF; }
+.senna-val { color: var(--mclaren-orange); }
+
+.th-car   { color: #00A4EF !important; }
+.th-senna { color: var(--mclaren-orange) !important; }
+.th-bars  { color: var(--mclaren-white) !important; font-size: 0.82rem; }
+
+/* Bar column */
+.bar-cell {
+    padding: 6px 12px !important;
+}
+
+.bar-track {
+    background: rgba(255,255,255,0.07);
+    border-radius: 4px;
+    height: 14px;
+    margin: 4px 0;
+    overflow: hidden;
+}
+
+.bar {
+    height: 100%;
+    border-radius: 4px;
+    width: 0;
+    transition: width 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.car-bar   { background-color: #00A4EF; }
+.senna-bar { background-color: var(--mclaren-orange); }
+
+/* Legend inside header */
+.legend-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    margin-right: 4px;
+    vertical-align: middle;
+}
+.car-dot   { background-color: #00A4EF; }
+.senna-dot { background-color: var(--mclaren-orange); }
+.legend-hint { color: var(--light-gray); font-size: 0.75rem; }
