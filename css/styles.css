@@ -413,7 +413,7 @@ footer {
 
 .metric-label {
     font-weight: bold;
-    color: var(--light-gray);
+    color: var(--mclaren-white);
     white-space: nowrap;
 }
 
@@ -463,4 +463,4 @@ footer {
 }
 .car-dot   { background-color: #00A4EF; }
 .senna-dot { background-color: var(--mclaren-orange); }
-.legend-hint { color: var(--light-gray); font-size: 0.75rem; }
+.legend-hint { color: var(--light-white); font-size: 0.75rem; }
