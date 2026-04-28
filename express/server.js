@@ -6,7 +6,7 @@ const PORT = 3000;
 
 // Route: Show Csv
 app.get('/data', (req, res) => {
-    const filePath = path.join(__dirname, 'data.csv');
+    const filePath = path.join(__dirname, 'engines-sample.csv');
     res.sendFile(filePath);
 });
 
