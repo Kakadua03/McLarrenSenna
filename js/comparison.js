@@ -261,8 +261,8 @@ function raceFinished(tCar, tSenna, btn, result) {
     raceRunning = false;
 
     const winner = tSenna <= tCar
-        ? "🏆 McLaren Senna gewinnt!"
-        : `🏆 ${currentCarName} gewinnt!`;
+        ? " McLaren Senna gewinnt!"
+        : ` ${currentCarName} gewinnt!`;
     const diff = Math.abs(tCar - tSenna).toFixed(2);
 
     result.innerHTML     = `<span class="result-winner">${winner}</span><span class="result-diff">Differenz: ${diff}s</span>`;
