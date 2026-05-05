@@ -23,7 +23,7 @@ let currentCarName = "";
 let raceRunning    = false;
 
 // ─── CSV ──────────────────────────────────────────────────────────────────────
-fetch("http://localhost:3000/data")
+fetch("http://10.214.6.33:3000/data")
     .then(res => res.text())
     .then(csv => {
         const result = Papa.parse(csv, {
