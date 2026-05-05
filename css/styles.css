@@ -24,18 +24,10 @@ body {
 /* =========================
    Navbar
    ========================= */
-#mainNav {
-    background-color: var(--mclaren-black);
-}
+#mainNav { background-color: var(--mclaren-black); }
 
-.navbar-brand-container {
-    display: flex;
-    align-items: center;
-}
-.navbar-back-button {
-    display: flex;
-    justify-content: flex-end;
-}
+.navbar-brand-container { display: flex; align-items: center; }
+.navbar-back-button     { display: flex; justify-content: flex-end; }
 
 .navbar-brand-container a {
     color: var(--mclaren-white);
@@ -44,34 +36,18 @@ body {
     position: relative;
     font-weight: bold;
 }
-
 .navbar-brand-container a:not(:last-child)::after {
     content: "";
     display: inline-block;
-    width: 2px;
-    height: 20px;
+    width: 2px; height: 20px;
     background-color: var(--mclaren-orange);
     margin-left: 10px;
     vertical-align: middle;
 }
-
-.navbar-brand-container a:hover {
-    color: var(--mclaren-orange);
-}
-
-.navbar-nav .nav-item a {
-    color: var(--mclaren-white);
-    text-decoration: none;
-    margin: 0 10px;
-}
-
-.navbar-nav .nav-item a:hover {
-    color: var(--mclaren-orange);
-}
-
-.navbar-nav .nav-link.active {
-    color: var(--light-gray) !important;
-}
+.navbar-brand-container a:hover { color: var(--mclaren-orange); }
+.navbar-nav .nav-item a { color: var(--mclaren-white); text-decoration: none; margin: 0 10px; }
+.navbar-nav .nav-item a:hover { color: var(--mclaren-orange); }
+.navbar-nav .nav-link.active { color: var(--light-gray) !important; }
 
 /* =========================
    Hero
@@ -79,10 +55,7 @@ body {
 .hero {
     height: 91vh;
     background-image:
-        linear-gradient(
-            rgba(0, 0, 0, 0.6),
-            rgba(0, 0, 0, 0.6)
-        ),
+        linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
         url("https://images.unsplash.com/photo-1552962700-b7fcd17d89bf?w=1600&auto=format&fit=crop&q=80");
     background-size: cover;
     background-position: center;
@@ -90,377 +63,326 @@ body {
     display: flex;
     align-items: center;
 }
+.hero h1 { font-size: 3.5rem; color: var(--mclaren-orange); }
+.hero p  { font-size: 1.3rem; margin-bottom: 20px; margin-left: 100px; }
 
-.hero h1 {
-    font-size: 3.5rem;
-    color: var(--mclaren-orange);
-}
-
-.hero p {
-    font-size: 1.3rem;
-    margin-bottom: 20px;
-    margin-left: 100px;
-}
-
-/* =========================
-   Hero for the History Page
-   ========================= */
-body.hero-history .hero {
-    position: relative;
-}
-
+body.hero-history .hero { position: relative; }
 body.hero-history .hero::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
+    content: ""; position: absolute; top:0;left:0;right:0;bottom:0;
     background-image: url("https://cdn.pixabay.com/photo/2016/12/14/15/25/f1-1906648_1280.jpg");
-    background-size: cover;
-    background-position: center;
-    filter: brightness(75%) grayscale(75%);
-    z-index: 0;
+    background-size: cover; background-position: center;
+    filter: brightness(75%) grayscale(75%); z-index: 0;
 }
+body.hero-history .hero > .container { position: relative; z-index: 1; }
+.hero-gallery { overflow: hidden; }
 
-body.hero-history .hero > .container {
-    position: relative;
-    z-index: 1;
-}
-
-.hero-gallery {
-    overflow: hidden;
-}
-
-/* =========================
-   Hero for the Data Page
-   ========================= */
-body.hero-data .hero {
-    position: relative;
-}
-
+body.hero-data .hero { position: relative; }
 body.hero-data .hero::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background-image: url("https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
-    background-size: cover;
-    background-position: center;
-    filter: grayscale(100%);
-    z-index: 0;
+    content: ""; position: absolute; top:0;left:0;right:0;bottom:0;
+    background-image: url("https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?q=80&w=1332&auto=format&fit=crop");
+    background-size: cover; background-position: center;
+    filter: grayscale(100%); z-index: 0;
 }
-
-body.hero-data .hero > .container {
-    position: relative;
-    z-index: 1;
-}
+body.hero-data .hero > .container { position: relative; z-index: 1; }
 
 /* =========================
-   Button
+   Buttons
    ========================= */
 .btn-mclaren {
     background-color: var(--mclaren-orange);
-    color: black;
-    font-weight: bold;
-    padding: 10px 25px;
-    border: none;
-    cursor: pointer;
+    color: black; font-weight: bold;
+    padding: 10px 25px; border: none; cursor: pointer;
 }
+.btn-mclaren:hover { background-color: var(--mclaren-orange); }
 
-.btn-mclaren:hover {
-    background-color: var(--mclaren-orange);
+.btn-primary {
+    background-color: var(--mclaren-orange); border: none;
+    color: var(--mclaren-black); font-weight: bold;
+    padding: 10px 25px; cursor: pointer;
 }
+.btn-primary:hover { background-color: var(--mclaren-orange); color: var(--mclaren-white); }
 
 /* =========================
    Sections
    ========================= */
 .section {
-    padding: 80px 20px;
-    text-align: center;
-    background-color: var(--mclaren-black);
-    display: block;
+    padding: 80px 20px; text-align: center;
+    background-color: var(--mclaren-black); display: block;
 }
-
-#gallery {
-    height: calc(100vh - 120px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.section-dark {
-    background-color: var(--mclaren-gray);
-}
-
-.section-dark h1{
-    font-size: 3.5rem;
-    color: var(--mclaren-orange); 
-}
-
-.section h2 {
-    color: var(--mclaren-orange);
-    margin-bottom: 20px;
-}
-
-.section a {
-    color: var(--mclaren-orange);
-    text-decoration: none;
-}
-
-.section-dark a {
-    color: var(--mclaren-orange);
-    text-decoration: none;
-}
-
-.section a:hover {
-    text-decoration: underline;
-}
-
-.section p {
-    max-width: 500px;
-    margin: 0 auto 20px auto;
-    line-height: 1.6;
-    text-align: left;
-}
+#gallery { height: calc(100vh - 120px); display: flex; justify-content: center; align-items: center; }
+.section-dark { background-color: var(--mclaren-gray); }
+.section-dark h1 { font-size: 3.5rem; color: var(--mclaren-orange); }
+.section h2     { color: var(--mclaren-orange); margin-bottom: 20px; }
+.section a, .section-dark a { color: var(--mclaren-orange); text-decoration: none; }
+.section a:hover { text-decoration: underline; }
+.section p { max-width: 500px; margin: 0 auto 20px; line-height: 1.6; text-align: left; }
 
 /* =========================
    Lists
    ========================= */
-ul {
-    list-style: none;
-    padding: 0;
-}
-
-ul li {
-    margin-bottom: 10px;
-}
+ul { list-style: none; padding: 0; }
+ul li { margin-bottom: 10px; }
+.model-list { list-style: none; }
+.model-list li::before { content: "▸ "; color: var(--mclaren-orange); }
 
 /* =========================
    Footer
    ========================= */
-footer {
-    background-color: var(--mclaren-black);
-    text-align: center;
-    padding: 20px;
-    color: var(--mclaren-white);
-}
+footer { background-color: var(--mclaren-black); text-align: center; padding: 20px; color: var(--mclaren-white); }
 
 /* =========================
    Responsive
    ========================= */
 @media (max-width: 768px) {
-    .hero h1 {
-        font-size: 2.2rem;
-    }
-    .hero p {
-        font-size: 1rem;
-    }
+    .hero h1 { font-size: 2.2rem; }
+    .hero p  { font-size: 1rem; }
 }
 
 /* =========================
-   Custom Styles for Model List
+   Gallery
    ========================= */
-.model-list {
-    list-style: none;
-}
-
-.model-list li::before {
-    content: "▸ ";
-    color: var(--mclaren-orange);
-}
-
-/* =========================
-   Gallery with Caption
-   ========================= */
-.mclaren-gallery {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-}
-
-.gallery-content {
-    text-align: center;
-}
-
+.mclaren-gallery { position: relative; display: flex; justify-content: center; align-items: center; width: 100%; }
+.gallery-content { text-align: center; }
 .mclaren-gallery img {
-    width: 90%;
-    max-width: 1100px;
-    height: auto;
-    max-height: 70vh;
-    object-fit: cover;
-    border-radius: 12px;
-    border: 3px solid var(--mclaren-orange);
+    width: 90%; max-width: 1100px; height: auto; max-height: 70vh;
+    object-fit: cover; border-radius: 12px; border: 3px solid var(--mclaren-orange);
 }
-
-.gallery-caption {
-    margin-top: 15px;
-    font-size: 1.1rem;
-    color: var(--mclaren-white);
-}
-
-/* Buttons */
+.gallery-caption { margin-top: 15px; font-size: 1.1rem; color: var(--mclaren-white); }
 .gallery-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: var(--mclaren-black);
-    color: var(--mclaren-orange);
-    border: 2px solid var(--mclaren-orange);
-    font-size: 36px;
-    padding: 10px 18px;
-    cursor: pointer;
+    position: absolute; top: 50%; transform: translateY(-50%);
+    background-color: var(--mclaren-black); color: var(--mclaren-orange);
+    border: 2px solid var(--mclaren-orange); font-size: 36px; padding: 10px 18px; cursor: pointer;
 }
-
-.gallery-btn.left { left: 5%; }
+.gallery-btn.left  { left:  5%; }
 .gallery-btn.right { right: 5%; }
-.gallery-btn:hover {
-    background-color: var(--mclaren-orange);
-    color: var(--mclaren-black);
-}
-
-.mclaren-gallery a img {
-    cursor: pointer;
-}
-
-.mclaren-gallery a:hover img {
-    opacity: 0.9;
-}
-
-#currentPage {
-    border-top: 2px solid var(--mclaren-orange);
-}
-/* Abstand wegen fixed Navbar */
-.car-section {
-    padding: 5%;
-    background-color: var(--mclaren-gray);
-}
-
-/* Text etwas größer auf großen Bildschirmen */
-.car-section h2 {
-    font-size: clamp(1.8rem, 2.5vw, 3rem);
-}
-
-.car-section p {
-    font-size: clamp(1rem, 1.2vw, 1.3rem);
-}
-
-/* Bild perfekt responsive */
-.car-img {
-    width: 100%;
-    height: auto;
-    border-radius: 16px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-
-}
-.col-md-6 img {
-    border: 3px solid var(--mclaren-orange);
-    border-radius: 16px;
-}
-
-@media (min-width: 1600px) {
-    .car-section {
-        padding-left: 10vw;
-        padding-right: 10vw;
-    }
-}
-
-.btn-primary {
-    background-color: var(--mclaren-orange);
-    border: none;
-    color: var(--mclaren-black);
-    font-weight: bold;
-    padding: 10px 25px;
-    cursor: pointer;
-}
-
-.btn-primary:hover {
-    background-color: var(--mclaren-orange);
-    color: var(--mclaren-white);
-}
-.margin-comparasion {
-    margin-top: 0px !important;
-}
+.gallery-btn:hover { background-color: var(--mclaren-orange); color: var(--mclaren-black); }
+.mclaren-gallery a img { cursor: pointer; }
+.mclaren-gallery a:hover img { opacity: 0.9; }
 
 /* =========================
-   Unified Comparison Table
+   Car sections
    ========================= */
-.comparison-title {
-    color: var(--mclaren-white);
-    font-size: 1.3rem;
-    margin-bottom: 12px;
-    text-align: left;
-}
+#currentPage { border-top: 2px solid var(--mclaren-orange); }
+.car-section { padding: 5%; background-color: var(--mclaren-gray); }
+.car-section h2 { font-size: clamp(1.8rem, 2.5vw, 3rem); }
+.car-section p  { font-size: clamp(1rem, 1.2vw, 1.3rem); }
+.car-img { width: 100%; height: auto; border-radius: 16px; box-shadow: 0 15px 40px rgba(0,0,0,0.15); }
+.col-md-6 img { border: 3px solid var(--mclaren-orange); border-radius: 16px; }
+@media (min-width: 1600px) { .car-section { padding-left: 10vw; padding-right: 10vw; } }
 
-.comparison-table {
-    width: 100%;
-    table-layout: fixed;
-}
+.margin-comparasion { margin-top: 0px !important; }
 
-.comparison-table th,
-.comparison-table td {
-    vertical-align: middle !important;
-    padding: 10px 12px;
-}
+/* =========================
+   Comparison Table
+   ========================= */
+.comparison-title { color: var(--mclaren-white); font-size: 1.3rem; margin-bottom: 12px; text-align: left; }
+.comparison-table { width: 100%; table-layout: fixed; }
+.comparison-table th, .comparison-table td { vertical-align: middle !important; padding: 10px 12px; }
+.comparison-table th:nth-child(1), .comparison-table td:nth-child(1) { width: 10%; }
+.comparison-table th:nth-child(2), .comparison-table td:nth-child(2) { width: 16%; }
+.comparison-table th:nth-child(3), .comparison-table td:nth-child(3) { width: 16%; }
+.comparison-table th:nth-child(4), .comparison-table td:nth-child(4) { width: 58%; }
 
-/* Column widths */
-.comparison-table th:nth-child(1),
-.comparison-table td:nth-child(1) { width: 10%; }
-.comparison-table th:nth-child(2),
-.comparison-table td:nth-child(2) { width: 16%; }
-.comparison-table th:nth-child(3),
-.comparison-table td:nth-child(3) { width: 16%; }
-.comparison-table th:nth-child(4),
-.comparison-table td:nth-child(4) { width: 58%; }
+.metric-label { font-weight: bold; color: var(--mclaren-white); white-space: nowrap; }
+.val-cell     { font-weight: bold; text-align: center; }
+.car-val      { color: #00A4EF; }
+.senna-val    { color: var(--mclaren-orange); }
+.th-car       { color: #00A4EF !important; }
+.th-senna     { color: var(--mclaren-orange) !important; }
+.th-bars      { color: var(--mclaren-white) !important; font-size: 0.82rem; }
 
-.metric-label {
-    font-weight: bold;
-    color: var(--mclaren-white);
-    white-space: nowrap;
-}
-
-.val-cell {
-    font-weight: bold;
-    text-align: center;
-}
-
-.car-val   { color: #00A4EF; }
-.senna-val { color: var(--mclaren-orange); }
-
-.th-car   { color: #00A4EF !important; }
-.th-senna { color: var(--mclaren-orange) !important; }
-.th-bars  { color: var(--mclaren-white) !important; font-size: 0.82rem; }
-
-/* Bar column */
-.bar-cell {
-    padding: 6px 12px !important;
-}
-
-.bar-track {
-    background: rgba(255,255,255,0.07);
-    border-radius: 4px;
-    height: 14px;
-    margin: 4px 0;
-    overflow: hidden;
-}
-
-.bar {
-    height: 100%;
-    border-radius: 4px;
-    width: 0;
-    transition: width 0.65s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
+.bar-cell  { padding: 6px 12px !important; }
+.bar-track { background: rgba(255,255,255,0.07); border-radius: 4px; height: 14px; margin: 4px 0; overflow: hidden; }
+.bar       { height: 100%; border-radius: 4px; width: 0; transition: width 0.65s cubic-bezier(0.22,1,0.36,1); }
 .car-bar   { background-color: #00A4EF; }
 .senna-bar { background-color: var(--mclaren-orange); }
 
-/* Legend inside header */
-.legend-dot {
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    border-radius: 2px;
-    margin-right: 4px;
-    vertical-align: middle;
+.legend-dot  { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 4px; vertical-align: middle; }
+.car-dot     { background-color: #00A4EF; }
+.senna-dot   { background-color: var(--mclaren-orange); }
+.legend-hint { font-size: 0.75rem; }
+
+
+/* ═══════════════════════════════════════════════════════
+   DRAG RACE ANIMATION
+   ═══════════════════════════════════════════════════════ */
+
+/* Container */
+.race-section {
+    background: #111;
+    border: 1px solid rgba(255,135,0,0.25);
+    border-radius: 12px;
+    padding: 28px 20px 24px;
+    margin-bottom: 40px;
 }
-.car-dot   { background-color: #00A4EF; }
-.senna-dot { background-color: var(--mclaren-orange); }
-.legend-hint { color: var(--light-white); font-size: 0.75rem; }
+
+/* Header */
+.race-header {
+    display: flex; flex-direction: column; align-items: center;
+    margin-bottom: 20px; gap: 4px;
+}
+.race-title        { font-size: 1.5rem; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mclaren-white); }
+.race-title-accent { color: var(--mclaren-orange); }
+.race-subtitle     { font-size: 0.78rem; color: var(--light-gray); letter-spacing: 0.06em; text-transform: uppercase; }
+
+/* Track wrapper */
+.race-track-wrapper {
+    position: relative;
+    display: flex; flex-direction: column; gap: 10px;
+    padding-right: 52px;
+}
+
+/* Finish line */
+.finish-line {
+    position: absolute; right: 0; top: 0; bottom: 0; width: 48px;
+    display: flex; align-items: center; justify-content: center;
+    border-left: 3px dashed rgba(255,255,255,0.25);
+    font-size: 2rem;
+}
+
+/* Lane row */
+.race-lane { display: flex; align-items: center; gap: 10px; }
+
+.lane-label {
+    width: 130px; text-align: right;
+    font-size: 0.78rem; font-weight: bold; color: var(--light-gray);
+    flex-shrink: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+/* Road */
+.lane-road {
+    flex: 1; height: 60px;
+    background: #1c1c1c;
+    border-radius: 6px; position: relative;
+    overflow: hidden; border: 1px solid rgba(255,255,255,0.06);
+}
+
+/* Animated dashes */
+.road-lines {
+    position: absolute; top: 50%; left: 0;
+    width: 200%; height: 2px;
+    background: repeating-linear-gradient(
+        90deg,
+        rgba(255,255,255,0.1) 0px, rgba(255,255,255,0.1) 20px,
+        transparent 20px, transparent 40px
+    );
+    transform: translateY(-50%);
+    animation: roadScroll 0.35s linear infinite paused;
+}
+
+@keyframes roadScroll {
+    from { transform: translateX(0)     translateY(-50%); }
+    to   { transform: translateX(-40px) translateY(-50%); }
+}
+
+/* Road scrolls while a race runs (JS adds class to wrapper) */
+.race-running .road-lines { animation-play-state: running; }
+
+/* Car */
+.race-car {
+    position: absolute;
+    left: 2%; top: 50%;
+    transform: translateY(-50%);
+    width: 110px;
+    display: flex; align-items: center;
+    /* No CSS transition — position updated every rAF frame */
+}
+.race-car svg {
+    width: 110px; height: auto;
+    filter: drop-shadow(0 4px 10px rgba(0,0,0,0.6));
+}
+
+/* Bounce at finish */
+@keyframes carBounce {
+    0%   { transform: translateY(-50%) scaleY(1); }
+    25%  { transform: translateY(-60%) scaleY(1.06); }
+    50%  { transform: translateY(-50%) scaleY(1); }
+    75%  { transform: translateY(-55%) scaleY(1.03); }
+    100% { transform: translateY(-50%) scaleY(1); }
+}
+.car-bounce { animation: carBounce 0.45s ease-out; }
+
+/* Live time badge */
+.lane-time {
+    width: 62px; text-align: center;
+    font-size: 0.9rem; font-weight: 900;
+    flex-shrink: 0; font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+}
+.car-time-badge   { color: #00A4EF; }
+.senna-time-badge { color: var(--mclaren-orange); }
+
+/* Exhaust container */
+.exhaust {
+    position: absolute; right: 100%; top: 0;
+    width: 20px; height: 100%;
+    pointer-events: none; overflow: visible;
+}
+
+/* Exhaust particle */
+.exhaust-particle {
+    position: absolute; border-radius: 50%;
+    background: rgba(210,210,210,0.55);
+    animation: exhaustDrift linear forwards;
+    left: 0;
+}
+@keyframes exhaustDrift {
+    0%   { transform: translateX(0)     scale(1);   opacity: 0.6; }
+    100% { transform: translateX(-45px) scale(2);   opacity: 0;   }
+}
+
+/* Controls */
+.race-controls {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 14px; margin-top: 22px;
+}
+
+.btn-race {
+    background: var(--mclaren-orange); color: #000;
+    font-weight: 900; font-size: 1rem; letter-spacing: 0.12em;
+    padding: 12px 44px; border: none; border-radius: 4px;
+    cursor: pointer; text-transform: uppercase;
+    transition: background 0.2s, transform 0.1s;
+}
+.btn-race:hover:not(:disabled) { background: #ffa030; transform: scale(1.03); }
+.btn-race:disabled { opacity: 0.45; cursor: not-allowed; }
+.race-btn-icon { margin-right: 6px; }
+
+/* Result */
+.race-result {
+    background: rgba(255,135,0,0.1);
+    border: 1px solid var(--mclaren-orange);
+    border-radius: 6px; padding: 10px 24px;
+    font-size: 1.05rem;
+    display: flex; align-items: center; gap: 16px;
+}
+.result-winner { font-weight: 900; color: var(--mclaren-orange); }
+.result-diff   { color: var(--light-gray); font-size: 0.88rem; }
+
+/* Info cards */
+.race-info-row {
+    display: flex; align-items: center; justify-content: center;
+    gap: 20px; flex-wrap: wrap;
+}
+.race-info-card {
+    display: flex; flex-direction: column; align-items: center;
+    background: rgba(255,255,255,0.04); border-radius: 8px;
+    padding: 14px 28px; min-width: 160px;
+    border: 1px solid rgba(255,255,255,0.08);
+}
+.car-info-card   { border-color: rgba(0,164,239,0.3); }
+.senna-info-card { border-color: rgba(255,135,0,0.3); }
+.info-label { font-size: 0.75rem; color: var(--light-gray); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
+.info-time  { font-size: 2rem; font-weight: 900; line-height: 1; }
+.car-info-card   .info-time { color: #00A4EF; }
+.senna-info-card .info-time { color: var(--mclaren-orange); }
+.info-unit      { font-size: 0.7rem; color: var(--light-gray); margin-top: 4px; }
+.race-info-vs   { font-size: 1.1rem; font-weight: 900; color: var(--light-gray); }
+
+/* Responsive */
+@media (max-width: 600px) {
+    .lane-label { width: 80px; font-size: 0.68rem; }
+    .race-car, .race-car svg { width: 78px; }
+    .race-title { font-size: 1.1rem; }
+    .lane-time  { width: 52px; font-size: 0.78rem; }
+}
