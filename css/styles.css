@@ -235,10 +235,29 @@ footer { background-color: var(--mclaren-black); text-align: center; padding: 20
 /* Finish line */
 .finish-line {
     position: absolute; right: 0; top: 0; bottom: 0; width: 48px;
-    display: flex; align-items: center; justify-content: center;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
     border-left: 3px dashed rgba(255,255,255,0.25);
-    font-size: 2rem;
+    gap: 5px;
     pointer-events: none;
+}
+
+/* CSS checkered flag block */
+.finish-checker {
+    width: 28px;
+    height: 28px;
+    border-radius: 3px;
+    background-image: repeating-conic-gradient(#ffffff 0% 25%, #111111 0% 50%);
+    background-size: 7px 7px;
+    box-shadow: 0 0 6px rgba(255,255,255,0.2);
+    flex-shrink: 0;
+}
+
+.finish-label {
+    font-size: 0.48rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
 }
 
 /* Lane row */

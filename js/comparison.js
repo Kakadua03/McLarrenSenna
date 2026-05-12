@@ -299,8 +299,8 @@ function raceFinished(tCar, tSenna, btn, result) {
     const diff = Math.abs(tCar - tSenna).toFixed(2);
 
     result.innerHTML = `
-        <span class="result-winner">${winnerName} gewinnt!</span>
-        <span class="result-diff">Differenz: ${diff}s</span>
+        <span class="result-winner">${winnerName} wins!</span>
+        <span class="result-diff">Gap: ${diff}s</span>
     `;
 
     // Apply colour: blue if rival car wins, default orange if Senna wins
@@ -309,7 +309,7 @@ function raceFinished(tCar, tSenna, btn, result) {
     result.style.display = "flex";
 
     btn.disabled  = false;
-    btn.innerHTML = `<span class="race-btn-icon">&#8635;</span> NOCHMAL`;
+    btn.innerHTML = `<span class="race-btn-icon">&#8635;</span> RACE AGAIN`;
 }
 
 // ─── Physics ──────────────────────────────────────────────────────────────────
