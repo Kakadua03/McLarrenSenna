@@ -7,6 +7,7 @@
     --mclaren-gray: #1a1a1a;
     --mclaren-white: #ffffff;
     --light-gray: #949494;
+    --rival-blue: #00A4EF;
 }
 
 /* =========================
@@ -224,7 +225,7 @@ footer { background-color: var(--mclaren-black); text-align: center; padding: 20
 .race-title-accent { color: var(--mclaren-orange); }
 .race-subtitle     { font-size: 0.78rem; color: var(--light-gray); letter-spacing: 0.06em; text-transform: uppercase; }
 
-/* Track wrapper */
+/* Track wrapper — extra right padding for finish line */
 .race-track-wrapper {
     position: relative;
     display: flex; flex-direction: column; gap: 10px;
@@ -237,6 +238,7 @@ footer { background-color: var(--mclaren-black); text-align: center; padding: 20
     display: flex; align-items: center; justify-content: center;
     border-left: 3px dashed rgba(255,255,255,0.25);
     font-size: 2rem;
+    pointer-events: none;
 }
 
 /* Lane row */
@@ -248,12 +250,22 @@ footer { background-color: var(--mclaren-black); text-align: center; padding: 20
     flex-shrink: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 
-/* Road */
+/* Road — overflow visible so the car is never clipped at the finish */
 .lane-road {
     flex: 1; height: 60px;
     background: #1c1c1c;
     border-radius: 6px; position: relative;
-    overflow: hidden; border: 1px solid rgba(255,255,255,0.06);
+    overflow: visible;
+    border: 1px solid rgba(255,255,255,0.06);
+}
+
+/* Clips only the scrolling dashes — car sits outside this layer */
+.road-clip {
+    position: absolute;
+    inset: 0;
+    border-radius: 6px;
+    overflow: hidden;
+    pointer-events: none;
 }
 
 /* Animated dashes */
@@ -284,7 +296,6 @@ footer { background-color: var(--mclaren-black); text-align: center; padding: 20
     transform: translateY(-50%);
     width: 110px;
     display: flex; align-items: center;
-    /* No CSS transition — position updated every rAF frame */
 }
 .race-car svg {
     width: 110px; height: auto;
@@ -347,7 +358,7 @@ footer { background-color: var(--mclaren-black); text-align: center; padding: 20
 .btn-race:disabled { opacity: 0.45; cursor: not-allowed; }
 .race-btn-icon { margin-right: 6px; }
 
-/* Result */
+/* Result — default (Senna / orange wins) */
 .race-result {
     background: rgba(255,135,0,0.1);
     border: 1px solid var(--mclaren-orange);
@@ -357,6 +368,15 @@ footer { background-color: var(--mclaren-black); text-align: center; padding: 20
 }
 .result-winner { font-weight: 900; color: var(--mclaren-orange); }
 .result-diff   { color: var(--light-gray); font-size: 0.88rem; }
+
+/* Result — blue car wins */
+.race-result.winner-blue {
+    background: rgba(0, 164, 239, 0.1);
+    border-color: var(--rival-blue);
+}
+.race-result.winner-blue .result-winner {
+    color: var(--rival-blue);
+}
 
 /* Info cards */
 .race-info-row {

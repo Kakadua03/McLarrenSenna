@@ -53,7 +53,8 @@
 
             <!-- Header -->
             <div class="race-header">
-                <span class="race-title">0 – 100 km/h <span class="race-title-accent">Drag Race</span></span>
+                <span class="race-title">Quarter Mile <span class="race-title-accent">Drag Race</span></span>
+                <span class="race-subtitle">402 m / ¼ mile</span>
             </div>
 
             <!-- Track -->
@@ -62,7 +63,7 @@
                 <div class="race-lane">
                     <div class="lane-label" id="lane-car-label">Rival</div>
                     <div class="lane-road">
-                        <div class="road-lines"></div>
+                        <div class="road-clip"><div class="road-lines"></div></div>
                         <div class="race-car" id="raceCar">
                             <div class="exhaust" id="exhaust-car"></div>
                             <svg viewBox="0 0 120 42" xmlns="http://www.w3.org/2000/svg">
@@ -85,7 +86,7 @@
                 <div class="race-lane">
                     <div class="lane-label">McLaren Senna</div>
                     <div class="lane-road">
-                        <div class="road-lines"></div>
+                        <div class="road-clip"><div class="road-lines"></div></div>
                         <div class="race-car" id="raceSenna">
                             <div class="exhaust" id="exhaust-senna"></div>
                             <svg viewBox="0 0 120 42" xmlns="http://www.w3.org/2000/svg">
@@ -106,6 +107,9 @@
                     <div class="lane-time senna-time-badge" id="time-senna">0.00s</div>
                 </div>
 
+                <!-- Finish line (inside wrapper so it overlaps roads) -->
+                <div class="finish-line">🏁</div>
+
             </div><!-- /race-track-wrapper -->
 
             <!-- Start button + result -->
@@ -116,18 +120,18 @@
                 <div id="raceResult" class="race-result" style="display:none;"></div>
             </div>
 
-            <!-- Estimated 0-100 info cards -->
+            <!-- Estimated quarter-mile info cards -->
             <div class="race-info-row mt-3" id="raceInfoRow" style="display:none;">
                 <div class="race-info-card car-info-card">
                     <span class="info-label" id="info-car-name">Rival</span>
                     <span class="info-time" id="info-car-time">–</span>
-                    <span class="info-unit">est. 0–100 km/h</span>
+                    <span class="info-unit">est. Quarter Mile</span>
                 </div>
                 <div class="race-info-vs">VS</div>
                 <div class="race-info-card senna-info-card">
                     <span class="info-label">McLaren Senna</span>
                     <span class="info-time" id="info-senna-time">–</span>
-                    <span class="info-unit">est. 0–100 km/h</span>
+                    <span class="info-unit">est. Quarter Mile</span>
                 </div>
             </div>
 
