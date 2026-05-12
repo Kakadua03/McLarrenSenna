@@ -194,6 +194,12 @@ function resetCars() {
     document.getElementById("time-car").textContent   = "0.00s";
     document.getElementById("time-senna").textContent = "0.00s";
 
+    // Reset road lines to stopped state
+    document.querySelectorAll(".road-lines").forEach(el => {
+        el.style.animationPlayState = "paused";
+        el.style.animationDuration  = "0.35s";
+    });
+
     stopExhaust();
 }
 
@@ -235,6 +241,14 @@ function startRace() {
     const timeCarEl   = document.getElementById("time-car");
     const timeSennaEl = document.getElementById("time-senna");
 
+    // Get each lane's road-lines element for individual speed + pause control
+    const carRoadLines   = carEl.closest(".lane-road").querySelector(".road-lines");
+    const sennaRoadLines = sennaEl.closest(".lane-road").querySelector(".road-lines");
+
+    // Start both road animations running
+    carRoadLines.style.animationPlayState   = "running";
+    sennaRoadLines.style.animationPlayState = "running";
+
     // Compute track limit per lane (avoids clipping at finish)
     const carTrackPct   = getTrackPct(carEl);
     const sennaTrackPct = getTrackPct(sennaEl);
@@ -244,7 +258,15 @@ function startRace() {
     let sennaFinished = false;
 
     startExhaust();
-    document.querySelector(".race-track-wrapper").classList.add("race-running");
+
+    // Maps normalised instantaneous speed (0–2) → CSS animation-duration.
+    // easeIn velocity at progress p = 2p  (derivative of p²).
+    // Higher speed → shorter duration → faster scrolling dashes.
+    function speedToDuration(progress) {
+        const speed = 2 * progress;                    // 0 at start → 2 at finish
+        const dur   = 0.5 / (speed + 0.06);            // 8.3 s → 0.24 s
+        return Math.max(0.1, Math.min(dur, 10)) + "s";
+    }
 
     function frame(ts) {
         if (!startTs) startTs = ts;
@@ -257,22 +279,28 @@ function startRace() {
         carEl.style.left   = `${2 + easeIn(carProgress)   * carTrackPct}%`;
         sennaEl.style.left = `${2 + easeIn(sennaProgress) * sennaTrackPct}%`;
 
+        // Sync road-line scroll speed to each car's current velocity
+        if (!carFinished)   carRoadLines.style.animationDuration   = speedToDuration(carProgress);
+        if (!sennaFinished) sennaRoadLines.style.animationDuration = speedToDuration(sennaProgress);
+
         // Live timer counts every frame
         if (!carFinished)   timeCarEl.textContent   = (elapsed / 1000).toFixed(2) + "s";
         if (!sennaFinished) timeSennaEl.textContent = (elapsed / 1000).toFixed(2) + "s";
 
-        // Car reaches finish → freeze timer, bounce, stop its exhaust
+        // Car reaches finish → freeze timer, bounce, stop exhaust, pause road lines
         if (carProgress >= 1 && !carFinished) {
             carFinished = true;
             timeCarEl.textContent = tCar + "s";
             carEl.classList.add("car-bounce");
             stopExhaustFor("car");
+            carRoadLines.style.animationPlayState = "paused";
         }
         if (sennaProgress >= 1 && !sennaFinished) {
             sennaFinished = true;
             timeSennaEl.textContent = tSenna + "s";
             sennaEl.classList.add("car-bounce");
             stopExhaustFor("senna");
+            sennaRoadLines.style.animationPlayState = "paused";
         }
 
         if (!carFinished || !sennaFinished) {
@@ -287,7 +315,6 @@ function startRace() {
 
 function raceFinished(tCar, tSenna, btn, result) {
     stopExhaust();
-    document.querySelector(".race-track-wrapper").classList.remove("race-running");
     raceRunning = false;
 
     const carWins = tCar < tSenna;

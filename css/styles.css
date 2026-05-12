@@ -236,28 +236,37 @@ footer { background-color: var(--mclaren-black); text-align: center; padding: 20
 .finish-line {
     position: absolute; right: 0; top: 0; bottom: 0; width: 48px;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
-    border-left: 3px dashed rgba(255,255,255,0.25);
-    gap: 5px;
     pointer-events: none;
+    gap: 0;
 }
 
-/* CSS checkered flag block */
-.finish-checker {
-    width: 28px;
-    height: 28px;
-    border-radius: 3px;
-    background-image: repeating-conic-gradient(#ffffff 0% 25%, #111111 0% 50%);
-    background-size: 7px 7px;
-    box-shadow: 0 0 6px rgba(255,255,255,0.2);
-    flex-shrink: 0;
+/* Vertical dashed separator between track and finish zone */
+.finish-line::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    border-left: 2px dashed rgba(255,255,255,0.2);
+}
+
+.finish-post {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.finish-post svg {
+    display: block;
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.7));
 }
 
 .finish-label {
-    font-size: 0.48rem;
+    font-size: 0.42rem;
     font-weight: 900;
-    letter-spacing: 0.08em;
-    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.12em;
+    color: rgba(255,255,255,0.45);
     text-transform: uppercase;
+    margin-top: 2px;
 }
 
 /* Lane row */
@@ -287,26 +296,28 @@ footer { background-color: var(--mclaren-black); text-align: center; padding: 20
     pointer-events: none;
 }
 
-/* Animated dashes */
+/* Animated dashes — full inset, background-position centers the 2px stripe
+   perfectly in both lanes without any subpixel transform issues           */
 .road-lines {
-    position: absolute; top: 50%; left: 0;
-    width: 200%; height: 2px;
-    background: repeating-linear-gradient(
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(
         90deg,
-        rgba(255,255,255,0.1) 0px, rgba(255,255,255,0.1) 20px,
-        transparent 20px, transparent 40px
+        rgba(255,255,255,0.18) 0px,  rgba(255,255,255,0.18) 20px,
+        transparent            20px, transparent            40px
     );
-    transform: translateY(-50%);
+    background-size: 40px 2px;
+    background-repeat: repeat-x;
+    background-position: 0 50%;
     animation: roadScroll 0.35s linear infinite paused;
 }
 
 @keyframes roadScroll {
-    from { transform: translateX(0)     translateY(-50%); }
-    to   { transform: translateX(-40px) translateY(-50%); }
+    from { background-position:   0 50%; }
+    to   { background-position: -40px 50%; }
 }
 
-/* Road scrolls while a race runs (JS adds class to wrapper) */
-.race-running .road-lines { animation-play-state: running; }
+/* Road speed + play-state are controlled per-lane via JS inline styles */
 
 /* Car */
 .race-car {
