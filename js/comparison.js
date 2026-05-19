@@ -9,13 +9,6 @@ const senna = {
 };
 
 // ─── Quarter-mile time estimate ───────────────────────────────────────────────
-// Based on scaled relationship from 0-100 km/h:
-//   t_quarter ≈ 0-100_time × 3.5
-//   0-100 base formula: 216 / HP^0.65
-//   → t_quarter = 756 / HP^0.65
-//
-// Senna (800 PS) → 756 / 800^0.65 ≈ 9.8 s  ✓ (real: ~9.9 s)
-// 200 PS compact → 756 / 200^0.65 ≈ 24 s   ✓
 function estimateQuarterMile(hp) {
     if (!hp || hp <= 0) return 99;
     return parseFloat((756 / Math.pow(hp, 0.65)).toFixed(2));
@@ -25,9 +18,13 @@ function estimateQuarterMile(hp) {
 let currentCarHP   = 0;
 let currentCarName = "";
 let raceRunning    = false;
-
-// Per-car exhaust interval handles
 const exhaustIntervals = { car: null, senna: null };
+
+// Combobox state
+let allBrands     = [];
+let selectedBrand = "";
+let filteredCars  = [];
+let selectedCarIdx = 0;
 
 // ─── CSV ──────────────────────────────────────────────────────────────────────
 fetch("http://localhost:3000/data")
@@ -37,10 +34,9 @@ fetch("http://localhost:3000/data")
         cars = result.data;
         init();
     })
-    .catch(err => {
-        console.error("CSV loading error:", err);
-    });
+    .catch(err => console.error("CSV loading error:", err));
 
+// ─── Init ─────────────────────────────────────────────────────────────────────
 function init() {
     const map = new Map();
     cars.forEach(c => {
@@ -51,52 +47,202 @@ function init() {
         }
     });
     cars = Array.from(map.values());
+    allBrands = [...new Set(cars.map(c => c["Make Name"]))].filter(Boolean).sort();
 
-    const brands      = [...new Set(cars.map(c => c["Make Name"]))];
-    const brandFilter = document.getElementById("brandFilter");
-    brands.forEach(b => {
-        if (!b) return;
-        const opt = document.createElement("option");
-        opt.value = b; opt.textContent = b;
-        brandFilter.appendChild(opt);
+    const brandInput = document.getElementById("brandInput");
+    const brandClear = document.getElementById("brandClear");
+    const modelInput = document.getElementById("modelInput");
+
+    // ── Brand combobox ──────────────────────────────────────────────────────
+    brandInput.addEventListener("focus", () => {
+        renderBrandList(brandInput.value);
+        openCombo("brandCombo");
     });
-
-    brandFilter.addEventListener("change", updateDropdown);
-    updateDropdown();
-}
-
-// ─── Dropdown ─────────────────────────────────────────────────────────────────
-function updateDropdown() {
-    const brand    = document.getElementById("brandFilter").value;
-    const dropdown = document.getElementById("carDropdown");
-    dropdown.innerHTML = `<option value="">Select a car...</option>`;
-
-    const filtered = cars.filter(c => !brand || c["Make Name"] === brand);
-    filtered.forEach((c, i) => {
-        const opt = document.createElement("option");
-        opt.value = i;
-        opt.textContent = `${c["Make Name"]} ${c["Model Name"]}`;
-        dropdown.appendChild(opt);
+    brandInput.addEventListener("input", () => {
+        selectedBrand = "";
+        if (brandClear) brandClear.style.display = "none";
+        renderBrandList(brandInput.value);
+        openCombo("brandCombo");
+        refreshModelCombo();
     });
+    brandInput.addEventListener("keydown", e =>
+        handleComboKey(e, "brandList", idx => {
+            const item = document.querySelectorAll("#brandList .combo-option")[idx];
+            if (item) selectBrand(item.dataset.value);
+        })
+    );
 
-    if (filtered.length > 0) {
-        let bestIndex = 0, maxPS = 0;
-        filtered.forEach((c, i) => {
-            const ps = Number(c["Engine Horsepower Hp"]) || 0;
-            if (ps > maxPS) { maxPS = ps; bestIndex = i; }
+    if (brandClear) {
+        brandClear.addEventListener("click", () => {
+            selectedBrand = "";
+            brandInput.value = "";
+            brandClear.style.display = "none";
+            refreshModelCombo();
         });
-        dropdown.value = bestIndex;
-        updateComparison(filtered);
     }
 
-    dropdown.onchange = () => updateComparison(filtered);
+    // ── Model combobox ──────────────────────────────────────────────────────
+    modelInput.addEventListener("focus", () => {
+        renderModelList(modelInput.value);
+        openCombo("modelCombo");
+    });
+    modelInput.addEventListener("input", () => {
+        renderModelList(modelInput.value);
+        openCombo("modelCombo");
+    });
+    modelInput.addEventListener("keydown", e =>
+        handleComboKey(e, "modelList", idx => {
+            const item = document.querySelectorAll("#modelList .combo-option")[idx];
+            if (item) selectCar(Number(item.dataset.index), true);
+        })
+    );
+
+    // Close on outside click
+    document.addEventListener("click", e => {
+        if (!e.target.closest("#brandCombo")) closeCombo("brandCombo");
+        if (!e.target.closest("#modelCombo")) closeCombo("modelCombo");
+    });
+
+    refreshModelCombo();
 }
 
+// ─── Keyboard navigation ──────────────────────────────────────────────────────
+function handleComboKey(e, listId, selectFn) {
+    const list  = document.getElementById(listId);
+    const items = Array.from(list.querySelectorAll(".combo-option"));
+    const cur   = items.findIndex(li => li.classList.contains("kb-focus"));
+
+    if (e.key === "ArrowDown") {
+        e.preventDefault();
+        const next = Math.min(cur + 1, items.length - 1);
+        items.forEach(li => li.classList.remove("kb-focus"));
+        items[next]?.classList.add("kb-focus");
+        items[next]?.scrollIntoView({ block: "nearest" });
+    } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        const prev = Math.max(cur - 1, 0);
+        items.forEach(li => li.classList.remove("kb-focus"));
+        items[prev]?.classList.add("kb-focus");
+        items[prev]?.scrollIntoView({ block: "nearest" });
+    } else if (e.key === "Enter") {
+        e.preventDefault();
+        if (cur >= 0) selectFn(cur);
+    } else if (e.key === "Escape") {
+        closeCombo(list.closest(".combo-wrap")?.id);
+    }
+}
+
+// ─── Brand combobox ───────────────────────────────────────────────────────────
+function renderBrandList(query) {
+    const list = document.getElementById("brandList");
+    const q    = (query || "").toLowerCase();
+    const hits = allBrands.filter(b => !q || b.toLowerCase().includes(q));
+
+    list.innerHTML = hits.map(b =>
+        `<li class="combo-option${b === selectedBrand ? " selected" : ""}" data-value="${b}">${hl(b, q)}</li>`
+    ).join("") || `<li class="combo-no-result">No makes found</li>`;
+
+    list.querySelectorAll(".combo-option").forEach(li =>
+        li.addEventListener("mousedown", e => { e.preventDefault(); selectBrand(li.dataset.value); })
+    );
+
+    const sel = list.querySelector(".selected");
+    sel?.scrollIntoView({ block: "nearest" });
+}
+
+function selectBrand(brand) {
+    selectedBrand = brand;
+    const brandInput = document.getElementById("brandInput");
+    const brandClear = document.getElementById("brandClear");
+    brandInput.value = brand;
+    if (brandClear) brandClear.style.display = "flex";
+    closeCombo("brandCombo");
+    refreshModelCombo();
+}
+
+// ─── Model combobox ───────────────────────────────────────────────────────────
+function refreshModelCombo() {
+    const modelInput = document.getElementById("modelInput");
+    modelInput.value = "";
+    buildFiltered("");
+
+    let best = 0, maxPS = 0;
+    filteredCars.forEach((c, i) => {
+        const ps = Number(c["Engine Horsepower Hp"]) || 0;
+        if (ps > maxPS) { maxPS = ps; best = i; }
+    });
+
+    selectedCarIdx = best;
+
+    if (filteredCars[best]) {
+        const c = filteredCars[best];
+        modelInput.value = `${c["Make Name"]} ${c["Model Name"]}`;
+        updateComparison();
+    }
+
+    updateFilterCount();
+}
+
+function buildFiltered(query) {
+    const q = (query || "").toLowerCase();
+    filteredCars = cars.filter(c => {
+        const matchBrand = !selectedBrand || c["Make Name"] === selectedBrand;
+        const fullName   = `${c["Make Name"]} ${c["Model Name"]}`.toLowerCase();
+        return matchBrand && (!q || fullName.includes(q));
+    });
+}
+
+function renderModelList(query) {
+    buildFiltered(query);
+    updateFilterCount();
+
+    const list = document.getElementById("modelList");
+    const q    = (query || "").toLowerCase();
+
+    list.innerHTML = filteredCars.map((c, i) => {
+        const name = `${c["Make Name"]} ${c["Model Name"]}`;
+        return `<li class="combo-option${i === selectedCarIdx ? " selected" : ""}" data-index="${i}">${hl(name, q)}</li>`;
+    }).join("") || `<li class="combo-no-result">No models found</li>`;
+
+    list.querySelectorAll(".combo-option").forEach(li =>
+        li.addEventListener("mousedown", e => { e.preventDefault(); selectCar(Number(li.dataset.index), true); })
+    );
+
+    list.querySelector(".selected")?.scrollIntoView({ block: "nearest" });
+}
+
+function selectCar(idx, closeAfter) {
+    if (!filteredCars[idx]) return;
+    selectedCarIdx = idx;
+    const car        = filteredCars[idx];
+    const modelInput = document.getElementById("modelInput");
+    modelInput.value = `${car["Make Name"]} ${car["Model Name"]}`;
+    if (closeAfter) closeCombo("modelCombo");
+    updateComparison();
+}
+
+// ─── Highlight match ──────────────────────────────────────────────────────────
+function hl(text, q) {
+    if (!q) return text;
+    const i = text.toLowerCase().indexOf(q);
+    if (i < 0) return text;
+    return text.slice(0, i) + `<mark>${text.slice(i, i + q.length)}</mark>` + text.slice(i + q.length);
+}
+
+function updateFilterCount() {
+    const el = document.getElementById("filterCount");
+    if (!el) return;
+    const n = filteredCars.length;
+    el.innerHTML = n > 0 ? `<span>${n}</span> model${n !== 1 ? "s" : ""} found` : `No results`;
+}
+
+// ─── Open / Close combo ───────────────────────────────────────────────────────
+function openCombo(id)  { document.getElementById(id)?.classList.add("open");    }
+function closeCombo(id) { document.getElementById(id)?.classList.remove("open"); }
+
 // ─── Comparison table ─────────────────────────────────────────────────────────
-function updateComparison(list) {
-    const dropdown = document.getElementById("carDropdown");
-    const index    = dropdown.value;
-    const car      = list[index];
+function updateComparison() {
+    const car = filteredCars[selectedCarIdx];
     if (!car) return;
 
     const carName  = `${car["Make Name"]} ${car["Model Name"]}`;
@@ -194,28 +340,18 @@ function resetCars() {
     document.getElementById("time-car").textContent   = "0.00s";
     document.getElementById("time-senna").textContent = "0.00s";
 
-    // Reset road lines to stopped state
-    document.querySelectorAll(".road-lines").forEach(el => {
-        el.style.animationPlayState = "paused";
-        el.style.animationDuration  = "0.35s";
-    });
-
     stopExhaust();
 }
 
 // ─── Dynamic track width ──────────────────────────────────────────────────────
-// Calculates how far (in % of road width) the car's LEFT edge can travel
-// so the car's RIGHT edge lands exactly at the road's right border.
-// road.offsetWidth is in px; carEl.offsetWidth is in px.
 function getTrackPct(carEl) {
-    const road     = carEl.closest(".lane-road");
-    const roadW    = road ? road.offsetWidth : 600;
-    const carW     = carEl.offsetWidth || 110;
-    // Leave 4px gap between car right edge and road right border
-    const maxLeft  = roadW - carW - 4;
-    const startPx  = roadW * 0.02;           // 2% start position
-    const travel   = maxLeft - startPx;      // how many px the car travels
-    return (travel / roadW) * 100;           // as % of road width
+    const road    = carEl.closest(".lane-road");
+    const roadW   = road ? road.offsetWidth : 600;
+    const carW    = carEl.offsetWidth || 110;
+    const maxLeft = roadW - carW - 4;
+    const startPx = roadW * 0.02;
+    const travel  = maxLeft - startPx;
+    return (travel / roadW) * 100;
 }
 
 // ─── Race ─────────────────────────────────────────────────────────────────────
@@ -232,7 +368,6 @@ function startRace() {
     const tCar   = estimateQuarterMile(currentCarHP);
     const tSenna = estimateQuarterMile(senna.power);
 
-    // 1 second real time = 1 second animation (no compression)
     const carVisualMs   = tCar   * 1000;
     const sennaVisualMs = tSenna * 1000;
 
@@ -241,15 +376,6 @@ function startRace() {
     const timeCarEl   = document.getElementById("time-car");
     const timeSennaEl = document.getElementById("time-senna");
 
-    // Get each lane's road-lines element for individual speed + pause control
-    const carRoadLines   = carEl.closest(".lane-road").querySelector(".road-lines");
-    const sennaRoadLines = sennaEl.closest(".lane-road").querySelector(".road-lines");
-
-    // Start both road animations running
-    carRoadLines.style.animationPlayState   = "running";
-    sennaRoadLines.style.animationPlayState = "running";
-
-    // Compute track limit per lane (avoids clipping at finish)
     const carTrackPct   = getTrackPct(carEl);
     const sennaTrackPct = getTrackPct(sennaEl);
 
@@ -259,15 +385,6 @@ function startRace() {
 
     startExhaust();
 
-    // Maps normalised instantaneous speed (0–2) → CSS animation-duration.
-    // easeIn velocity at progress p = 2p  (derivative of p²).
-    // Higher speed → shorter duration → faster scrolling dashes.
-    function speedToDuration(progress) {
-        const speed = 2 * progress;                    // 0 at start → 2 at finish
-        const dur   = 0.5 / (speed + 0.06);            // 8.3 s → 0.24 s
-        return Math.max(0.1, Math.min(dur, 10)) + "s";
-    }
-
     function frame(ts) {
         if (!startTs) startTs = ts;
         const elapsed = ts - startTs;
@@ -275,32 +392,23 @@ function startRace() {
         const carProgress   = Math.min(elapsed / carVisualMs,   1);
         const sennaProgress = Math.min(elapsed / sennaVisualMs, 1);
 
-        // easeIn (t²) = constant acceleration like s = ½at²
         carEl.style.left   = `${2 + easeIn(carProgress)   * carTrackPct}%`;
         sennaEl.style.left = `${2 + easeIn(sennaProgress) * sennaTrackPct}%`;
 
-        // Sync road-line scroll speed to each car's current velocity
-        if (!carFinished)   carRoadLines.style.animationDuration   = speedToDuration(carProgress);
-        if (!sennaFinished) sennaRoadLines.style.animationDuration = speedToDuration(sennaProgress);
-
-        // Live timer counts every frame
         if (!carFinished)   timeCarEl.textContent   = (elapsed / 1000).toFixed(2) + "s";
         if (!sennaFinished) timeSennaEl.textContent = (elapsed / 1000).toFixed(2) + "s";
 
-        // Car reaches finish → freeze timer, bounce, stop exhaust, pause road lines
         if (carProgress >= 1 && !carFinished) {
             carFinished = true;
             timeCarEl.textContent = tCar + "s";
             carEl.classList.add("car-bounce");
             stopExhaustFor("car");
-            carRoadLines.style.animationPlayState = "paused";
         }
         if (sennaProgress >= 1 && !sennaFinished) {
             sennaFinished = true;
             timeSennaEl.textContent = tSenna + "s";
             sennaEl.classList.add("car-bounce");
             stopExhaustFor("senna");
-            sennaRoadLines.style.animationPlayState = "paused";
         }
 
         if (!carFinished || !sennaFinished) {
@@ -317,22 +425,15 @@ function raceFinished(tCar, tSenna, btn, result) {
     stopExhaust();
     raceRunning = false;
 
-    const carWins = tCar < tSenna;
-
-    const winnerName = carWins
-        ? currentCarName
-        : "McLaren Senna";
-
-    const diff = Math.abs(tCar - tSenna).toFixed(2);
+    const carWins    = tCar < tSenna;
+    const winnerName = carWins ? currentCarName : "McLaren Senna";
+    const diff       = Math.abs(tCar - tSenna).toFixed(2);
 
     result.innerHTML = `
         <span class="result-winner">${winnerName} wins!</span>
         <span class="result-diff">Gap: ${diff}s</span>
     `;
-
-    // Apply colour: blue if rival car wins, default orange if Senna wins
     result.classList.toggle("winner-blue", carWins);
-
     result.style.display = "flex";
 
     btn.disabled  = false;
@@ -353,7 +454,6 @@ function startExhaust() {
     });
 }
 
-/** Stop exhaust for a single car ("car" or "senna") */
 function stopExhaustFor(which) {
     if (exhaustIntervals[which]) {
         clearInterval(exhaustIntervals[which]);
@@ -361,7 +461,6 @@ function stopExhaustFor(which) {
     }
 }
 
-/** Stop exhaust for both cars */
 function stopExhaust() {
     stopExhaustFor("car");
     stopExhaustFor("senna");

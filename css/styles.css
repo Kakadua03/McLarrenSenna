@@ -296,8 +296,7 @@ footer { background-color: var(--mclaren-black); text-align: center; padding: 20
     pointer-events: none;
 }
 
-/* Animated dashes — full inset, background-position centers the 2px stripe
-   perfectly in both lanes without any subpixel transform issues           */
+/* Static dashes — no animation */
 .road-lines {
     position: absolute;
     inset: 0;
@@ -309,15 +308,168 @@ footer { background-color: var(--mclaren-black); text-align: center; padding: 20
     background-size: 40px 2px;
     background-repeat: repeat-x;
     background-position: 0 50%;
-    animation: roadScroll 0.35s linear infinite paused;
-}
-
-@keyframes roadScroll {
-    from { background-position:   0 50%; }
-    to   { background-position: -40px 50%; }
 }
 
 /* Road speed + play-state are controlled per-lane via JS inline styles */
+
+/* =========================
+   Filter Panel & Comboboxes
+   ========================= */
+.filter-panel {
+    background: #0d1b2a;
+    border: 2px solid var(--mclaren-orange);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.filter-panel-title {
+    font-size: 0.7rem;
+    font-weight: 900;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--mclaren-orange);
+    margin-bottom: 2px;
+}
+
+.filter-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.filter-group {
+    flex: 1;
+    min-width: 160px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.filter-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+}
+
+/* Combobox wrapper — relative so the dropdown can anchor to it */
+.combo-wrap {
+    position: relative;
+}
+
+/* The text input inside each combobox */
+.combo-input {
+    width: 100%;
+    background: rgba(255,255,255,0.04);
+    border: 1.5px solid rgba(255,135,0,0.5);
+    border-radius: 6px;
+    color: #fff;
+    padding: 10px 36px 10px 14px;
+    font-size: 0.92rem;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.18s, box-shadow 0.18s, background 0.18s;
+    cursor: text;
+}
+.combo-input:focus,
+.combo-wrap.open .combo-input {
+    border-color: var(--mclaren-orange);
+    background: rgba(255,135,0,0.06);
+    box-shadow: 0 0 0 3px rgba(255,135,0,0.15);
+}
+.combo-input::placeholder { color: rgba(255,255,255,0.28); }
+
+/* Clear × button (brand only) */
+.combo-clear {
+    position: absolute;
+    right: 10px; top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: rgba(255,135,0,0.65);
+    font-size: 0.85rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 2px 4px;
+    border-radius: 3px;
+    line-height: 1;
+    transition: color 0.15s;
+}
+.combo-clear:hover { color: var(--mclaren-orange); }
+
+/* Dropdown list — hidden by default, shown when .open */
+.combo-list {
+    display: none;
+    position: absolute;
+    left: 0; right: 0;
+    top: calc(100% + 4px);
+    background: #0d1b2a;
+    border: 1.5px solid var(--mclaren-orange);
+    border-radius: 6px;
+    max-height: 240px;
+    overflow-y: auto;
+    list-style: none;
+    margin: 0;
+    padding: 4px 0;
+    z-index: 999;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.55);
+}
+.combo-wrap.open .combo-list { display: block; }
+
+/* Scrollbar */
+.combo-list::-webkit-scrollbar { width: 5px; }
+.combo-list::-webkit-scrollbar-track { background: transparent; }
+.combo-list::-webkit-scrollbar-thumb { background: rgba(255,135,0,0.35); border-radius: 3px; }
+
+/* Each option */
+.combo-option {
+    padding: 8px 14px;
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.85);
+    cursor: pointer;
+    transition: background 0.12s, color 0.12s;
+}
+.combo-option:hover,
+.combo-option.kb-focus {
+    background: rgba(255,135,0,0.12);
+    color: #fff;
+}
+.combo-option.selected {
+    color: var(--mclaren-orange);
+    font-weight: 700;
+}
+
+/* Highlight matched text */
+.combo-option mark {
+    background: rgba(255,135,0,0.3);
+    color: var(--mclaren-orange);
+    border-radius: 2px;
+    padding: 0 1px;
+    font-weight: 700;
+}
+
+/* Empty state */
+.combo-no-result {
+    padding: 10px 14px;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.3);
+    font-style: italic;
+}
+
+/* Result count */
+.filter-count {
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.3);
+    text-align: right;
+    letter-spacing: 0.04em;
+}
+.filter-count span { color: var(--mclaren-orange); font-weight: 700; }
 
 /* Car */
 .race-car {
