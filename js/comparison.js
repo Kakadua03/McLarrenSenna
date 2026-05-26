@@ -175,8 +175,6 @@ function refreshModelCombo() {
     selectedCarIdx = best;
 
     if (filteredCars[best]) {
-        const c = filteredCars[best];
-        modelInput.value = `${c["Make Name"]} ${c["Model Name"]}`;
         updateComparison();
     }
 
