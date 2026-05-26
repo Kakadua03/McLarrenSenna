@@ -587,3 +587,110 @@ footer { background-color: var(--mclaren-black); text-align: center; padding: 20
     .race-title { font-size: 1.1rem; }
     .lane-time  { width: 52px; font-size: 0.78rem; }
 }
+
+/* =========================================
+   SENNA DATA TABLE
+========================================= */
+
+/* =========================================
+   DATA TABLE DESIGN
+========================================= */
+
+.spec-card{
+    background: rgba(10, 15, 25, 0.92);
+    border: 1px solid rgba(255,128,0,0.25);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 12px 35px rgba(0,0,0,0.45);
+    margin-top: 30px;
+}
+
+/* Table */
+.senna-table{
+    width: 100%;
+    margin: 0;
+    border-collapse: collapse;
+    color: #fff;
+}
+
+/* Header */
+.senna-table thead{
+    background: linear-gradient(90deg,#ff8000,#ff9d2f);
+}
+
+.senna-table thead th{
+    padding: 18px;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: none;
+    color: #fff;
+    font-weight: 700;
+}
+
+/* Rows */
+.senna-table tbody tr{
+    background: rgba(255,255,255,0.015);
+    transition: 0.25s ease;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.senna-table tbody tr:hover{
+    background: rgba(255,128,0,0.08);
+}
+
+/* Cells */
+.senna-table td{
+    padding: 16px 18px;
+    font-size: 15px;
+    color: rgba(255,255,255,0.88);
+}
+
+/* Left column */
+.senna-table td:first-child{
+    color: #ff8000;
+    font-weight: 600;
+    width: 35%;
+}
+
+/* Zebra Effect */
+.senna-table tbody tr:nth-child(even){
+    background: rgba(255,255,255,0.03);
+}
+
+/* Responsive */
+@media (max-width: 768px){
+
+    .senna-table thead{
+        display: none;
+    }
+
+    .senna-table,
+    .senna-table tbody,
+    .senna-table tr,
+    .senna-table td{
+        display: block;
+        width: 100%;
+    }
+
+    .senna-table tr{
+        margin-bottom: 15px;
+        border-bottom: 2px solid rgba(255,128,0,0.2);
+    }
+
+    .senna-table td{
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+    }
+
+    .senna-table td::before{
+        content: attr(data-label);
+        position: absolute;
+        left: 18px;
+        width: 45%;
+        text-align: left;
+        color: #ff8000;
+        font-weight: 600;
+    }
+}
