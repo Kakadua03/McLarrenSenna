@@ -345,7 +345,7 @@ function getTrackPct(carEl) {
     const road    = carEl.closest(".lane-road");
     const roadW   = road ? road.offsetWidth : 600;
     const carW    = carEl.offsetWidth || 110;
-    const maxLeft = roadW - carW - 4;
+    const maxLeft = roadW - carW - 52.5;
     const startPx = roadW * 0.02;
     const travel  = maxLeft - startPx;
     return (travel / roadW) * 100;
