@@ -274,7 +274,6 @@ function updateComparison() {
     }).join("");
 
     document.getElementById("compareData").innerHTML = `
-        <h3 class="comparison-title">${carName} vs McLaren Senna</h3>
         <table class="table table-dark table-bordered comparison-table">
             <thead>
                 <tr>
