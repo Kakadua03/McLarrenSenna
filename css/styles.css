@@ -598,7 +598,7 @@ footer { background-color: var(--mclaren-black); text-align: center; padding: 20
 
 .spec-card{
     background: rgba(10, 15, 25, 0.92);
-    border: 1px solid rgba(255,128,0,0.25);
+    border: 2px solid var(--mclaren-orange);
     border-radius: 18px;
     overflow: hidden;
     box-shadow: 0 12px 35px rgba(0,0,0,0.45);
@@ -609,13 +609,14 @@ footer { background-color: var(--mclaren-black); text-align: center; padding: 20
 .senna-table{
     width: 100%;
     margin: 0;
-    border-collapse: collapse;
+    transition: 0.25s ease;
     color: #fff;
+
 }
 
 /* Header */
 .senna-table thead{
-    background: linear-gradient(90deg,#ff8000,#ff9d2f);
+    background: var(--mclaren-orange);
 }
 
 .senna-table thead th{
@@ -635,20 +636,16 @@ footer { background-color: var(--mclaren-black); text-align: center; padding: 20
     border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 
-.senna-table tbody tr:hover{
-    background: rgba(255,128,0,0.08);
-}
-
 /* Cells */
 .senna-table td{
     padding: 16px 18px;
     font-size: 15px;
-    color: rgba(255,255,255,0.88);
+    color: var(--mclaren-white);
 }
 
 /* Left column */
 .senna-table td:first-child{
-    color: #ff8000;
+    color: var(--mclaren-orange);
     font-weight: 600;
     width: 35%;
 }
@@ -690,7 +687,7 @@ footer { background-color: var(--mclaren-black); text-align: center; padding: 20
         left: 18px;
         width: 45%;
         text-align: left;
-        color: #ff8000;
+        color: var(--mclaren-orange);
         font-weight: 600;
     }
 }
