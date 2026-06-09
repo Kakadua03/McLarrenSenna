@@ -160,7 +160,7 @@ footer { background-color: var(--mclaren-black); text-align: center; padding: 20
 .gallery-btn:hover { background-color: var(--mclaren-orange); color: rgba(13, 20, 33, 0.92); }
 .mclaren-gallery a img { cursor: pointer; }
 .mclaren-gallery a:hover img { opacity: 0.9; }
-
+.mb-4 { color: var(--mclaren-orange); }
 /* =========================
    Car sections
    ========================= */
