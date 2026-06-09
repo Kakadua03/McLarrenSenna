@@ -62,6 +62,10 @@ function init() {
     brandInput.addEventListener("input", () => {
         selectedBrand = "";
         if (brandClear) brandClear.style.display = "none";
+        if (brandInput.value === "") {
+            userHasSelected = false;
+            renderEmptyTable();
+        }
         renderBrandList(brandInput.value);
         openCombo("brandCombo");
         refreshModelCombo();
@@ -78,7 +82,9 @@ function init() {
             selectedBrand = "";
             brandInput.value = "";
             brandClear.style.display = "none";
+            userHasSelected = false;
             refreshModelCombo();
+            renderEmptyTable();
         });
     }
 
