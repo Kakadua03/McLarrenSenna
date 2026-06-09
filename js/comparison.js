@@ -25,6 +25,7 @@ let allBrands     = [];
 let selectedBrand = "";
 let filteredCars  = [];
 let selectedCarIdx = 0;
+let userHasSelected = false; // tracks whether the user has actively chosen a car
 
 // ─── CSV ──────────────────────────────────────────────────────────────────────
 fetch("http://localhost:3000/data")
@@ -93,7 +94,7 @@ function init() {
     modelInput.addEventListener("keydown", e =>
         handleComboKey(e, "modelList", idx => {
             const item = document.querySelectorAll("#modelList .combo-option")[idx];
-            if (item) selectCar(Number(item.dataset.index), true);
+            if (item) { userHasSelected = true; selectCar(Number(item.dataset.index), true); }
         })
     );
 
@@ -104,6 +105,7 @@ function init() {
     });
 
     refreshModelCombo();
+    renderEmptyTable();
 }
 
 // ─── Keyboard navigation ──────────────────────────────────────────────────────
@@ -174,7 +176,7 @@ function refreshModelCombo() {
 
     selectedCarIdx = best;
 
-    if (filteredCars[best]) {
+    if (filteredCars[best] && userHasSelected) {
         updateComparison();
     }
 
@@ -212,6 +214,7 @@ function renderModelList(query) {
 function selectCar(idx, closeAfter) {
     if (!filteredCars[idx]) return;
     selectedCarIdx = idx;
+    userHasSelected = true;
     const car        = filteredCars[idx];
     const modelInput = document.getElementById("modelInput");
     modelInput.value = `${car["Make Name"]} ${car["Model Name"]}`;
@@ -237,6 +240,73 @@ function updateFilterCount() {
 // ─── Open / Close combo ───────────────────────────────────────────────────────
 function openCombo(id)  { document.getElementById(id)?.classList.add("open");    }
 function closeCombo(id) { document.getElementById(id)?.classList.remove("open"); }
+
+// ─── Empty table on first load ────────────────────────────────────────────────
+function renderEmptyTable() {
+    const metrics = [
+        { label: "PS",          sennaVal: senna.power,     unit: " PS" },
+        { label: "Engine Size", sennaVal: senna.size,      unit: " L"  },
+        { label: "Cylinders",   sennaVal: senna.cylinders, unit: ""    }
+    ];
+
+    const rows = metrics.map(m => `
+        <tr>
+            <td class="metric-label">${m.label}</td>
+            <td class="val-cell car-val" style="color: var(--bs-secondary, #6c757d);">–</td>
+            <td class="val-cell senna-val">${m.sennaVal}${m.unit}</td>
+            <td class="bar-cell">
+                <div class="bar-track">
+                    <div class="bar car-bar" style="width:0"></div>
+                </div>
+                <div class="bar-track">
+                    <div class="bar senna-bar" data-width="100%" style="width:0"></div>
+                </div>
+            </td>
+        </tr>`
+    ).join("");
+
+    document.getElementById("compareData").innerHTML = `
+        <table class="table table-dark table-bordered comparison-table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th class="th-car" style="color: var(--bs-secondary, #6c757d);">Select a car…</th>
+                    <th class="th-senna">McLaren Senna</th>
+                    <th class="th-bars">
+                        <span class="legend-dot car-dot"></span>Rival
+                        &nbsp;&nbsp;
+                        <span class="legend-dot senna-dot"></span>McLaren Senna
+                        <span class="legend-hint">&nbsp;(% of higher value per metric)</span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+        </table>
+    `;
+
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            document.querySelectorAll(".bar[data-width]").forEach(bar => {
+                bar.style.width = bar.dataset.width;
+            });
+        });
+    });
+
+    // Also show the race section with empty rival values
+    const section = document.getElementById("raceSection");
+    if (section) {
+        section.style.display = "block";
+        document.getElementById("lane-car-label").textContent = "–";
+        document.getElementById("info-car-name").textContent  = "–";
+        document.getElementById("info-car-time").textContent  = "–";
+        document.getElementById("info-senna-time").textContent = estimateQuarterMile(senna.power) + "s";
+        document.getElementById("raceInfoRow").style.display  = "flex";
+        const btn = document.getElementById("raceBtn");
+        btn.innerHTML = `<span class="race-btn-icon">&#9654;</span> START RACE`;
+        btn.disabled  = true;
+        document.getElementById("raceResult").style.display = "none";
+    }
+}
 
 // ─── Comparison table ─────────────────────────────────────────────────────────
 function updateComparison() {
