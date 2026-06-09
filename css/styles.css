@@ -241,14 +241,6 @@ footer { background-color: var(--mclaren-black); text-align: center; padding: 20
     gap: 0;
 }
 
-/* Vertical dashed separator between track and finish zone */
-.finish-line::before {
-    content: "";
-    position: absolute;
-    left: 0; top: 0; bottom: 0;
-    border-left: 2px dashed rgba(255,255,255,0.2);
-}
-
 .finish-post {
     display: flex;
     flex-direction: column;
@@ -265,7 +257,7 @@ footer { background-color: var(--mclaren-black); text-align: center; padding: 20
     font-size: 0.42rem;
     font-weight: 900;
     letter-spacing: 0.12em;
-    color: rgba(255,255,255,0.45);
+    color: var(--light-gray);
     text-transform: uppercase;
     margin-top: 2px;
 }
