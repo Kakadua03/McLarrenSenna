@@ -235,9 +235,10 @@ footer { background-color: var(--mclaren-black); text-align: center; padding: 20
 
 /* Finish line */
 .finish-line {
-    position: absolute; right: 0; top: 0; bottom: 0; width: 48px;
+    position: absolute; right: 0; top: 0; bottom: -4px; width: 48px;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
     pointer-events: none;
+    transform: translateX(-50%);
     gap: 0;
 }
 
@@ -287,6 +288,7 @@ footer { background-color: var(--mclaren-black); text-align: center; padding: 20
     border-radius: 6px;
     overflow: hidden;
     pointer-events: none;
+    transform: translateX(-50%);
 }
 
 /* Static dashes - no animation */
@@ -475,6 +477,31 @@ footer { background-color: var(--mclaren-black); text-align: center; padding: 20
 .race-car svg {
     width: 110px; height: auto;
     filter: drop-shadow(0 4px 10px rgba(0,0,0,0.6));
+}
+
+/* Spinning wheels */
+@keyframes wheelSpin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+.wheel-wrapper {
+    position: absolute;
+    pointer-events: none;
+    width: 28px;
+    height: 26px;
+    margin-right: 10px;
+    bottom: 2px;
+}
+.wheel-wrapper.wheel-rear  { left: 18%; }
+.wheel-wrapper.wheel-front { left: 90%; }
+.wheel-wrapper img {
+    display: block;
+    width: 28px;
+    height: 24px;
+    transform-origin: 50% 50%;
+}
+.wheel-spinning img {
+    animation: wheelSpin linear infinite;
 }
 
 /* Bounce at finish */

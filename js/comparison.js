@@ -404,11 +404,39 @@ function updateRaceUI() {
 }
 
 // ─── Reset ────────────────────────────────────────────────────────────────────
+// ─── Wheels ───────────────────────────────────────────────────────────────────
+function injectWheels(carEl) {
+    if (carEl.querySelector(".wheel-wrapper")) return;
+    ["wheel-rear", "wheel-front"].forEach(cls => {
+        const wrapper = document.createElement("div");
+        wrapper.className = `wheel-wrapper ${cls}`;
+        const img = document.createElement("img");
+        img.src = "../assets/wheel.png";
+        img.alt = "wheel";
+        wrapper.appendChild(img);
+        carEl.appendChild(wrapper);
+    });
+}
+
+function setWheelSpeed(carEl, durationMs) {
+    carEl.querySelectorAll(".wheel-wrapper").forEach(w => {
+        if (durationMs > 0) {
+            w.classList.add("wheel-spinning");
+            w.querySelector("img").style.animationDuration = durationMs + "ms";
+        } else {
+            w.classList.remove("wheel-spinning");
+        }
+    });
+}
+
 function resetCars() {
     const carEl   = document.getElementById("raceCar");
     const sennaEl = document.getElementById("raceSenna");
     if (carEl)   { carEl.style.left   = "2%"; carEl.classList.remove("car-bounce"); }
     if (sennaEl) { sennaEl.style.left = "2%"; sennaEl.classList.remove("car-bounce"); }
+
+    if (carEl)   { injectWheels(carEl);   setWheelSpeed(carEl,   0); }
+    if (sennaEl) { injectWheels(sennaEl); setWheelSpeed(sennaEl, 0); }
 
     document.getElementById("time-car").textContent   = "0.00s";
     document.getElementById("time-senna").textContent = "0.00s";
@@ -458,6 +486,15 @@ function startRace() {
 
     startExhaust();
 
+    // Wheel speed: fast car => fast spin. Base spin duration at full speed ~120ms.
+    // Map: slower cars get longer spin duration (slower rotation).
+    const baseSpinMs = 120;
+    function wheelDuration(raceDurationMs, progress) {
+        // Speed ramps with easeIn progress; min 25ms, max 900ms at start
+        const speed = Math.max(easeIn(progress), 0.01);
+        return Math.max(baseSpinMs / speed * (raceDurationMs / 10000), 25);
+    }
+
     function frame(ts) {
         if (!startTs) startTs = ts;
         const elapsed = ts - startTs;
@@ -468,6 +505,10 @@ function startRace() {
         carEl.style.left   = `${2 + easeIn(carProgress)   * carTrackPct}%`;
         sennaEl.style.left = `${2 + easeIn(sennaProgress) * sennaTrackPct}%`;
 
+        // Update wheel spin speed based on current velocity
+        if (!carFinished)   setWheelSpeed(carEl,   wheelDuration(carVisualMs,   carProgress));
+        if (!sennaFinished) setWheelSpeed(sennaEl, wheelDuration(sennaVisualMs, sennaProgress));
+
         if (!carFinished)   timeCarEl.textContent   = (elapsed / 1000).toFixed(2) + "s";
         if (!sennaFinished) timeSennaEl.textContent = (elapsed / 1000).toFixed(2) + "s";
 
@@ -475,11 +516,13 @@ function startRace() {
             carFinished = true;
             timeCarEl.textContent = tCar + "s";
             carEl.classList.add("car-bounce");
+            setWheelSpeed(carEl, 0);
             stopExhaustFor("car");
         }
         if (sennaProgress >= 1 && !sennaFinished) {
             sennaFinished = true;
             timeSennaEl.textContent = tSenna + "s";
+            setWheelSpeed(sennaEl, 0);
             sennaEl.classList.add("car-bounce");
             stopExhaustFor("senna");
         }
