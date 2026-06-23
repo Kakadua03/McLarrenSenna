@@ -407,9 +407,10 @@ function updateRaceUI() {
 // ─── Wheels ───────────────────────────────────────────────────────────────────
 function injectWheels(carEl) {
     if (carEl.querySelector(".wheel-wrapper")) return;
+    const carClass = carEl.id === "raceSenna" ? "wheel-senna" : "wheel-rival";
     ["wheel-rear", "wheel-front"].forEach(cls => {
         const wrapper = document.createElement("div");
-        wrapper.className = `wheel-wrapper ${cls}`;
+        wrapper.className = `wheel-wrapper ${carClass} ${cls}`;
         const img = document.createElement("img");
         img.src = "../assets/wheel.png";
         img.alt = "wheel";
