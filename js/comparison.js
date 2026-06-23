@@ -17,6 +17,7 @@ function estimateQuarterMile(hp) {
 // ─── State ────────────────────────────────────────────────────────────────────
 let currentCarHP   = 0;
 let currentCarName = "";
+let currentBodyType = "sedan";
 let raceRunning    = false;
 const exhaustIntervals = { car: null, senna: null };
 
@@ -456,9 +457,11 @@ function updateComparison() {
 function updateRaceUI() {
     const car = filteredCars[selectedCarIdx];
 
-document.getElementById("raceCarImg").src =
-    `../assets/${car.raceImage}`;
-    
+    document.getElementById("raceCarImg").src =
+        `../assets/${car.raceImage}`;
+
+    currentBodyType = car.carType || "sedan";
+
     const section = document.getElementById("raceSection");
     if (!section) return;
 
@@ -483,17 +486,28 @@ document.getElementById("raceCarImg").src =
 
 // ─── Reset ────────────────────────────────────────────────────────────────────
 // ─── Wheels ───────────────────────────────────────────────────────────────────
+const KNOWN_BODY_TYPES = ["sedan", "coupe", "hatchback", "suv", "van", "pickup"];
+
 function injectWheels(carEl) {
     if (carEl.querySelector(".wheel-wrapper")) return;
-    const carClass = carEl.id === "raceSenna" ? "wheel-senna" : "wheel-rival";
+    const carClass  = carEl.id === "raceSenna" ? "wheel-senna" : "wheel-rival";
+    const bodyClass = carEl.id === "raceCar" ? `wheel-${currentBodyType}` : "";
     ["wheel-rear", "wheel-front"].forEach(cls => {
         const wrapper = document.createElement("div");
-        wrapper.className = `wheel-wrapper ${carClass} ${cls}`;
+        wrapper.className = `wheel-wrapper ${carClass} ${bodyClass} ${cls}`.trim();
         const img = document.createElement("img");
         img.src = "../assets/wheel.png";
         img.alt = "wheel";
         wrapper.appendChild(img);
         carEl.appendChild(wrapper);
+    });
+}
+
+function updateWheelBodyType(carEl) {
+    if (carEl.id !== "raceCar") return;
+    carEl.querySelectorAll(".wheel-wrapper").forEach(w => {
+        KNOWN_BODY_TYPES.forEach(t => w.classList.remove("wheel-" + t));
+        w.classList.add("wheel-" + currentBodyType);
     });
 }
 
@@ -514,7 +528,7 @@ function resetCars() {
     if (carEl)   { carEl.style.left   = "2%"; carEl.classList.remove("car-bounce"); }
     if (sennaEl) { sennaEl.style.left = "2%"; sennaEl.classList.remove("car-bounce"); }
 
-    if (carEl)   { injectWheels(carEl);   setWheelSpeed(carEl,   0); }
+    if (carEl)   { injectWheels(carEl);   updateWheelBodyType(carEl);   setWheelSpeed(carEl,   0); }
     if (sennaEl) { injectWheels(sennaEl); setWheelSpeed(sennaEl, 0); }
 
     document.getElementById("time-car").textContent   = "0.00s";

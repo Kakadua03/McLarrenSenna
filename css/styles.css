@@ -492,21 +492,36 @@ footer { background-color: var(--mclaren-black); text-align: center; padding: 20
 }
 .wheel-wrapper img {
     display: block;
-    width: 25.5px;
-    height: 25.5px;
+    width: 25px;
+    height: 25px;
     transform-origin: 50% 50%;
 }
 .wheel-spinning img {
     animation: wheelSpin linear infinite;
 }
 
-/* ── Rival car (Lane 1, #raceCar) wheel positions ── */
-.wheel-wrapper.wheel-rival.wheel-rear  { left: 20%; }
-.wheel-wrapper.wheel-rival.wheel-front { left: 104%; }
+/* ── Rival car (Lane 1, #raceCar) wheel positions — edit per body type ── */
+.wheel-wrapper.wheel-hatchback.wheel-rear  { left: 7%; }
+.wheel-wrapper.wheel-hatchback.wheel-front { left: 78%; }
+
+.wheel-wrapper.wheel-coupe.wheel-rear      { left: 17.5%; }
+.wheel-wrapper.wheel-coupe.wheel-front     { left: 78.8%; }
+
+.wheel-wrapper.wheel-pickup.wheel-rear     { left: 17%; }
+.wheel-wrapper.wheel-pickup.wheel-front    { left: 78.8%; }
+
+.wheel-wrapper.wheel-sedan.wheel-rear      { left: 15%; }
+.wheel-wrapper.wheel-sedan.wheel-front     { left: 91.5%; }
+
+.wheel-wrapper.wheel-suv.wheel-rear        { left: 8.4%; }
+.wheel-wrapper.wheel-suv.wheel-front       { left: 65.9%; }
+
+.wheel-wrapper.wheel-van.wheel-rear        { left: 5.9%; }
+.wheel-wrapper.wheel-van.wheel-front       { left: 50.2%; }
 
 /* ── McLaren Senna (Lane 2, #raceSenna) wheel positions ── */
-.wheel-wrapper.wheel-senna.wheel-rear  { left: 17%; }
-.wheel-wrapper.wheel-senna.wheel-front { left: 95.5%; }
+.wheel-wrapper.wheel-senna.wheel-rear  { left: 16%; }
+.wheel-wrapper.wheel-senna.wheel-front { left: 94%; }
 
 /* Bounce at finish */
 @keyframes carBounce {
