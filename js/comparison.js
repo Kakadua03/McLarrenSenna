@@ -28,12 +28,85 @@ let selectedCarIdx = 0;
 let userHasSelected = false; // tracks whether the user has actively chosen a car
 
 // ─── CSV ──────────────────────────────────────────────────────────────────────
+const sedanTypes = [
+    "sedan",
+    "saloon"
+];
+
+const coupeTypes = [
+    "coupe",
+    "roadster",
+    "convertible",
+    "cabriolet",
+    "spyder",
+    "spider",
+    "targa"
+];
+
+const hatchbackTypes = [
+    "hatchback",
+    "wagon",
+    "estate",
+    "liftback",
+    "fastback"
+];
+
+const suvTypes = [
+    "suv",
+    "crossover",
+    "utility",
+    "sport utility",
+    "escape" // Ford Escape
+];
+
+const vanTypes = [
+    "van",
+    "minivan",
+    "mpv",
+    "passenger van",
+    "cargo van"
+];
+
+const pickupTypes = [
+    "pickup",
+    "truck",
+    "cab",
+    "crew"
+];
+
+function getCarType(bodyType = "") {
+    const type = bodyType.toLowerCase();
+
+    if (sedanTypes.some(t => type.includes(t))) return "sedan";
+    if (coupeTypes.some(t => type.includes(t))) return "coupe";
+    if (hatchbackTypes.some(t => type.includes(t))) return "hatchback";
+    if (suvTypes.some(t => type.includes(t))) return "suv";
+    if (vanTypes.some(t => type.includes(t))) return "van";
+    if (pickupTypes.some(t => type.includes(t))) return "pickup";
+
+    console.warn("Unknown body type:", bodyType);
+    return "sedan";
+}
+
 fetch("http://localhost:3000/data")
     .then(res => res.text())
     .then(csv => {
         const result = Papa.parse(csv, { header: true });
-        cars = result.data;
-        init();
+
+cars = result.data.map(car => {
+    const bodyType =
+        car["Trim Description"] || "";
+
+    const carType = getCarType(bodyType);
+
+    return {
+        ...car,
+        carType,
+        raceImage: `race-${carType}.png`
+    };
+});
+
+init();
     })
     .catch(err => console.error("CSV loading error:", err));
 
@@ -381,6 +454,11 @@ function updateComparison() {
 
 // ─── Race UI setup ────────────────────────────────────────────────────────────
 function updateRaceUI() {
+    const car = filteredCars[selectedCarIdx];
+
+document.getElementById("raceCarImg").src =
+    `../assets/${car.raceImage}`;
+    
     const section = document.getElementById("raceSection");
     if (!section) return;
 
