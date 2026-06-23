@@ -497,7 +497,7 @@ footer { background-color: var(--mclaren-black); text-align: center; padding: 20
 .wheel-wrapper img {
     display: block;
     width: 28px;
-    height: 24px;
+    height: 28px;
     transform-origin: 50% 50%;
 }
 .wheel-spinning img {
